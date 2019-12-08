@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import{Link,withRouter} from "react-router-dom";
-import logo from './logo.svg';
+import logo from './FlatyLogo.png';
 import { Container, Row, Col } from 'reactstrap';
 
 class UserHome extends React.Component {
@@ -17,7 +17,7 @@ class UserHome extends React.Component {
         <label> |</label> 
         <label><Link to="/home">My Profile</Link></label> 
         <label> |</label> 
-        <label><Link to="/home">My Offers</Link></label> 
+        <label><Link to="/myoffers">My Offers</Link></label>
          
        </span> 
      
@@ -37,11 +37,11 @@ class UserHome extends React.Component {
        <span >
         <Link to="/home"><button >Added a new offer</button></Link> 
         <label> |</label> 
-        <Link to="/home"><button >Modify offer</button></Link> 
+        <Link to="/myoffers"><button >Modify offer</button></Link>
         <label> |</label> 
-        <Link to="/home"><button >Delete a offer</button></Link> 
+        <Link to="/myoffers"><button >Delete a offer</button></Link>
         <label> |</label> 
-        <Link to="/home"><button >My Offers</button></Link> 
+        <Link to="/myoffers"><button >My Offers</button></Link>
          
        </span> 
 

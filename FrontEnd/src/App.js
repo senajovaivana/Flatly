@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+import logo from './FlatyLogo.png';
 import "./App.css";
 import LoginPage from './LoginPage';
 import UserHome from './UserHome';
@@ -9,6 +9,7 @@ import{
     Route,
     Link
 } from "react-router-dom";
+import MyOffers from "./MyOffers";
 class App extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,7 @@ class App extends Component {
     }
 
 
+
     render() {
         return (
             <Router>
@@ -30,9 +32,12 @@ class App extends Component {
             <Switch>
                 <Route  exact path="/">
                 <LoginPage/>
-                </Route>
+                    </Route>
                 <Route exact path="/home">
-                <UserHome/>
+                    <UserHome/>
+                </Route>
+                <Route exact path="/myoffers">
+                    <MyOffers/>
                 </Route>
             </Switch>
         </Router>
