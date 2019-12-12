@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import{Link,withRouter} from "react-router-dom";
-import axios from 'axios';
+
 
 class LoginPage extends React.Component {
   constructor() {
