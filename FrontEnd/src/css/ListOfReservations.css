@@ -1,0 +1,8 @@
+.tableOfReservations {
+    color: #282c34;
+    background-color: white;
+}
+
+.tableOfReservations tbody tr:hover {
+    background-color:  #c8c9c9;
+}

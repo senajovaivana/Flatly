@@ -24,14 +24,14 @@ CREATE TABLE IF NOT EXISTS "users"
 
 CREATE TABLE IF NOT EXISTS "payment_method"
 (
-    id_payment_method SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name_of_method varchar(40)
 );
 
 /*no atribute active- because, we can check it -> if (end_date > sysdate or end_date is null) then is active */
 CREATE TABLE IF NOT EXISTS "room"
 (
-    id_room SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     owner_of_room varchar(40),
     name_of_room varchar(200),
     start_date date,
@@ -55,28 +55,28 @@ CREATE TABLE IF NOT EXISTS "payment_method_of_room"
     id_room integer,
     id_payment_method integer,
     PRIMARY KEY(id_room, id_payment_method),
-    FOREIGN KEY (id_room) REFERENCES room(id_room),
-    FOREIGN KEY (id_payment_method) REFERENCES payment_method(id_payment_method)
+    FOREIGN KEY (id_room) REFERENCES room(id),
+    FOREIGN KEY (id_payment_method) REFERENCES payment_method(id)
 );
 
 CREATE TABLE IF NOT EXISTS "booking"
 (
-    id_booking SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     owner_of_booking varchar(40),
     start_date date,
     end_date date,
     item_type varchar(1) default 'F',
     item_id integer,
     active varchar(1) default 'T',
-    FOREIGN KEY (item_id) REFERENCES room(id_room)
+    FOREIGN KEY (item_id) REFERENCES room(id)
 );
 
 CREATE TABLE IF NOT EXISTS "room_image"
 (
-    id_image SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     id_room integer,
     content bytea,
-    FOREIGN KEY (id_room) REFERENCES room(id_room)
+    FOREIGN KEY (id_room) REFERENCES room(id)
 );
 
 

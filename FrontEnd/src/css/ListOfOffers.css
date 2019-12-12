@@ -1,0 +1,23 @@
+.icon-offer-manage {
+    font-size: 15px;
+    color: white;
+    background-color:  #343a40;
+    border-color:  #282c34;
+}
+
+.icon-offer-manage:hover {
+    color: #5cb85c;
+}
+
+.icon-offer-box {
+    width: 35vmin;
+}
+
+.offer-pic {
+    height: 120px;
+    width: 35vmin;
+}
+
+.container-offer {
+    margin: 10px;
+}
