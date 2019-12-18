@@ -1,4 +1,4 @@
-import { FLATS_LOADED, FLAT_DETAIL, DELETE_FLAT } from '../constants/appConstaints';
+import {FLATS_LOADED, FLAT_DETAIL, FLAT_DELETED, FLAT_SAVED, FLAT_UPDATED} from '../constants/appConstaints';
 
 export const flatsLoaded = (flats) => {
     return {
@@ -18,9 +18,30 @@ export const flatDetailLoaded = (flatDetail) => {
     };
 };
 
-export const deleteFlat = (id) => {
+export const flatDeleted = (id) => {
     return {
-        type: DELETE_FLAT,
-        id: id
-    }
+        type: FLAT_DELETED,
+        payload: {
+            id
+        }
+    };
+};
+
+export const flatSaved = (flatDetail) => {
+    console.log(flatDetail);
+    return {
+        type: FLAT_SAVED,
+        payload: {
+            flatDetail
+        }
+    };
+};
+
+export const flatUpdated = (flatDetail) => {
+    return {
+        type: FLAT_UPDATED,
+        payload: {
+            flatDetail
+        }
+    };
 };

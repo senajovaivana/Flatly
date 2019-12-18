@@ -1,8 +1,7 @@
 import React from 'react';
 import {Table} from 'reactstrap';
 import '../css/ListOfReservations.css'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPen} from "@fortawesome/free-solid-svg-icons";
+import * as moment from 'moment';
 
 const ListOfReservations  = ({
                                  reservations
@@ -20,8 +19,8 @@ const ListOfReservations  = ({
                     <th>Name of your offer</th>
                     <th>Date of arrival</th>
                     <th>Date of leaving</th>
+                    <th>Number of nights</th>
                     <th>Login of guest</th>
-                    <th>Detail</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,12 +30,10 @@ const ListOfReservations  = ({
                             <td> {r.name_of_offer} </td>
                             <td> {r.start_date} </td>
                             <td> {r.end_date} </td>
+
+                            <td> {moment.duration(moment(r.end_date,"YYYY-MM-DD").
+                                                   diff(moment(r.start_date,"YYYY-MM-DD"))).asDays()} </td>
                             <td> {r.name_of_quests} </td>
-                            <td>
-                                <a>
-                                    <FontAwesomeIcon icon={faPen} /> &nbsp;
-                                </a>
-                            </td>
                         </>
                     </tr>)
                 }

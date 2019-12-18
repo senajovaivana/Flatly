@@ -1,24 +1,79 @@
-import { FLATS_LOADED, FLAT_DETAIL, UNLOAD_FLAT_DETAIL, DELETE_FLAT } from '../constants/appConstaints';
+import {
+    FLATS_LOADED,
+    FLAT_DETAIL,
+    UNLOAD_FLAT_DETAIL,
+    FLAT_DELETED,
+    FLAT_SAVED,
+    FLAT_UPDATED,
+    USER_DETAIL_LOADED
+} from '../constants/appConstaints';
 
 export const initialState = {
     flats: undefined,
-    flatDetail: undefined
+    flatDetail:  {
+        name_of_room: undefined,
+        description: undefined,
+        start_date: undefined,
+        price: undefined,
+        limit_of_quests: undefined,
+        check_in_from: undefined,
+        check_in_to: undefined,
+        check_out: undefined,
+        payment_methods: undefined,
+        country: undefined,
+        city: undefined,
+        street: undefined,
+        number_of_street: undefined,
+        zip_code: undefined,
+        image: undefined
+    },
+    userDetail: undefined
 };
 
 const flatsReducer = (state = initialState, action) => {
     switch (action.type) {
         case FLATS_LOADED: {
             const { flats } = action.payload;
-            return Object.assign({}, state, { flats });
+            return { ...state, flats: flats};
         }
         case FLAT_DETAIL: {
             const { flatDetail } = action.payload;
-            return Object.assign({}, state, { flatDetail });
+            return { ...state, flatDetail: flatDetail};
         }
-        case UNLOAD_FLAT_DETAIL:
-            return Object.assign({}, state, { undefined });
-        case DELETE_FLAT:
-            return Object.assign({}, state, { undefined });
+        case UNLOAD_FLAT_DETAIL: {
+            const { flatDetail } = initialState.flatDetail;
+            return { ...state, flatDetail: flatDetail};
+        }
+        case FLAT_DELETED: {
+            const { id } = action.payload;
+            const index = state.flats.findIndex(item => item.id === id);
+            let newFlats = [...state.flats];
+            newFlats.splice(index, 1);
+            return { ...state, flats: newFlats};
+        }
+        case FLAT_SAVED: {
+            const { flatDetail } = action.payload;
+            if (state.flats !== undefined) {
+                return { ...state, flats: [...state.flats, flatDetail]};
+            } else {
+                return state;
+            }
+        }
+        case FLAT_UPDATED: {
+            if (state.flats !== undefined) {
+                const { flatDetail } = action.payload;
+                const index = state.flats.findIndex(item => item.id === flatDetail.id);
+                let newFlats = [...state.flats];
+                newFlats[index] = flatDetail;
+                return { ...state, flats: newFlats};
+            } else {
+                return state;
+            }
+        }
+        case USER_DETAIL_LOADED: {
+            const { userDetail } = action.payload;
+            return { ...state, userDetail: userDetail};
+        }
         default:
             return state
     }

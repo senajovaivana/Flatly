@@ -7,21 +7,23 @@ import java.sql.Time;
 import java.util.Date;
 
 @Entity
+
 @Table(name = "room")
 @Data
 public class FlatEntity {
     private static final long serialVersionUID = -1098893507296828343L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "owner_of_room")
-    private String owner_of_room;
+    private int owner_of_room;
     @Column(name = "name_of_room")
     private String name_of_room;
     @Column(name = "start_date")
     private Date start_date;
+    @Column(name = "active")
+    private char active;
     @Column(name = "end_date")
     private Date end_date;
     @Column(name = "description")
@@ -46,5 +48,4 @@ public class FlatEntity {
     private Time check_out;
     @Column(name = "limit_of_quests")
     private int limit_of_quests;
-
 }

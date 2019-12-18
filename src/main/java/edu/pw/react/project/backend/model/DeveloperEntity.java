@@ -12,6 +12,7 @@ public class DeveloperEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
     private long id;
     @Column(name = "login")
     private String login;

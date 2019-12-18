@@ -13,11 +13,12 @@ import LoginPage from "./LoginPage";
 import ListOfOffers from "./ListOfRooms";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from '../redux/reducers/flatsReducer'
 import PublicRoute from "./PublicRoute";
 import RoomDetailPage from "./RoomDetailPage";
 
-const store = createStore(rootReducer, {});
+const store = createStore(rootReducer, {}, composeWithDevTools());
 
 class App extends Component {
     constructor(props) {
@@ -26,10 +27,6 @@ class App extends Component {
             developers: [],
             isLoading: false
         };
-    }
-
-    componentDidMount() {
-
     }
 
     render() {

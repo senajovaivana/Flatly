@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS "developer"
 
 CREATE TABLE IF NOT EXISTS "users"
 (
-    login  varchar(40) PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    login  varchar(40),
     password varchar(80),
     first_name  varchar(40),
     last_name varchar(40),
@@ -28,14 +29,14 @@ CREATE TABLE IF NOT EXISTS "payment_method"
     name_of_method varchar(40)
 );
 
-/*no atribute active- because, we can check it -> if (end_date > sysdate or end_date is null) then is active */
 CREATE TABLE IF NOT EXISTS "room"
 (
-    id SERIAL PRIMARY KEY,
-    owner_of_room varchar(40),
+    id BIGSERIAL PRIMARY KEY,
+    owner_of_room integer,
     name_of_room varchar(200),
     start_date date,
     end_date date default null,
+    active char(1) default 'T',
     description varchar(2000),
     city varchar(50),
     street varchar(50),
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "room"
     check_in_to time,
     check_out time,
     limit_of_quests integer,
-    FOREIGN KEY (owner_of_room) REFERENCES users(login)
+    FOREIGN KEY (owner_of_room) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS "payment_method_of_room"
@@ -78,6 +79,4 @@ CREATE TABLE IF NOT EXISTS "room_image"
     content bytea,
     FOREIGN KEY (id_room) REFERENCES room(id)
 );
-
-
 

@@ -1,39 +1,42 @@
 import React, {Component} from 'react';
-import '../css/ListOfOffers.css';
+import '../css/ListOfRooms.css';
 import {Container, Row, Col, ButtonGroup, Button} from 'reactstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash, faPen} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faPen, faPlus} from "@fortawesome/free-solid-svg-icons";
 import logo from '../flat.jpg';
 import { connect } from 'react-redux'
-import {deleteFlat, flatsLoaded} from '../redux/actions/flatsActions'
-import {Link} from "react-router-dom";
-import {UNLOAD_FLAT_DETAIL} from "../redux/constants/appConstaints";
-import {commonUnloadAction} from "../redux/actions/commonActions";
+import {flatDeleted, flatsLoaded} from '../redux/actions/flatsActions'
+import { withRouter } from 'react-router-dom'
 
 class ListOfRooms extends Component {
     constructor(props) {
         super(props);
-        //this.onDetailClick = this.onDetailClick.bind(this);
+        this.onDetailClick = this.onDetailClick.bind(this);
         this.onDeleteClick = this.onDeleteClick.bind(this);
+        this.onClickNewOffer = this.onClickNewOffer.bind(this);
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/flats')
-            .then((data) => data.json())
-            .then((flats) => {
-                this.props.flatsLoaded(flats);
-            });
-    }
-
-    componentWillUnmount() {
-        this.props.dispatchUnload();
+        if (this.props.flats === undefined) {
+            fetch('http://localhost:8080/flats')
+                .then((data) => data.json())
+                .then((flats) => {
+                    this.props.flatsLoaded(flats);
+                });
+        }
     }
 
     render() {
         const { flats } = this.props;
         return (
             <div className="App-header">
-                <h2 className='nameOfPage'>My Offers</h2>
+                    <div className="nameOfPage">
+                        <h2>My Offers &nbsp; </h2>
+                        <Button value="" className='icon-add' onClick={this.onClickNewOffer}>
+                            <FontAwesomeIcon icon={faPlus}/>
+                        </Button>
+                    </div>
+
                 <br/>
                 <Container>
                     <Row>
@@ -46,12 +49,10 @@ class ListOfRooms extends Component {
                                     </Row>
                                     <Row>
                                         <ButtonGroup className={'icon-offer-box'}>
-                                            <Link to={`/offers/edit/${r.id}`}>
-                                                <Button value={r.id} className='icon-offer-manage'>
-                                                     <FontAwesomeIcon icon={faPen }/>
-                                                </Button>
-                                            </Link>
-                                            <Button value={r.id} onClick={this.onDeleteClick} className='icon-offer-manage'>
+                                            <Button value={r.id} onClick={() => this.onDetailClick(r.id)} className='icon-offer-manage'>
+                                                <FontAwesomeIcon icon={faPen }/>
+                                            </Button>
+                                            <Button value={r.id} onClick={() => { if(window.confirm('Are you sure you wish to delete this item?')) this.onDeleteClick(r.id)}} className='icon-offer-manage'>
                                                  <FontAwesomeIcon icon={faTrash}/>
                                             </Button>
                                         </ButtonGroup>
@@ -65,24 +66,32 @@ class ListOfRooms extends Component {
             );
         }
 
-    onDeleteClick(e) {
-        let id = e.target.value;
-      //  this.props.dispatchDelete(id);
-        fetch(`http://localhost:8080/flats/${id}`, {
-            method: 'DELETE',
+
+    onClickNewOffer() {
+        this.props.history.push(`/offers/create`);
+    }
+
+    onDetailClick(id) {
+        this.props.history.push(`/offers/edit/${id}`);
+    }
+
+    onDeleteClick(id) {
+        fetch("http://localhost:8080/flats/delete/" + id, {
+            method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({id: id})
-        }).then((data) => data.json())
-            .then((flat) => {
-                this.props.dispatchDelete(flat);
-            });
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    this.props.dispatchDelete(id);
+                }
+            }
+           );
     }
-
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -92,13 +101,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     flatsLoaded: flats => dispatch(flatsLoaded(flats)),
-    dispatchDelete: (id) =>
-        dispatch(deleteFlat(id)),
-    dispatchUnload: () =>
-        dispatch(commonUnloadAction(UNLOAD_FLAT_DETAIL)),
+    dispatchDelete: (id) => dispatch(flatDeleted(id)),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ListOfRooms)
+)(withRouter(ListOfRooms))

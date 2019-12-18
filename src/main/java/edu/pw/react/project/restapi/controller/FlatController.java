@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.Collection;
 
 @RestController
@@ -26,7 +26,7 @@ public class FlatController {
     @GetMapping(path = "")
     public ResponseEntity<Collection<FlatEntity>> getAllFlats() {
         System.out.println("Getting All flats");
-        return ResponseEntity.ok(flatRepository.findAll());
+        return ResponseEntity.ok(flatRepository.findAllActiveFlats());
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -37,20 +37,30 @@ public class FlatController {
         return new ResponseEntity<>(f, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) throws ResourceNotFoundException {
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "delete/{id}")
+    public ResponseEntity<String> setRoomNonactive(@PathVariable Long id) throws ResourceNotFoundException {
         if (!flatRepository.existsById(id))
             return new ResponseEntity<>("Flat with id " + id + " does not exist", HttpStatus.NOT_FOUND);
-        flatRepository.deleteById(id);
-        return new ResponseEntity<>("Flat was deleted", HttpStatus.OK);
+        flatRepository.updateFlatToNonActive(id);
+
+        return new ResponseEntity<>("Flat was set to nonactive", HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "")
-    public void createUser(@Valid @RequestBody FlatEntity flat) throws IOException {
-        if (flatRepository.existsById(flat.getId())) {
+    @Transactional
+    public ResponseEntity<FlatEntity> createFlat(@Valid @RequestBody FlatEntity flat) {
+        return new ResponseEntity<>(flatRepository.save(flat), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<FlatEntity> updateFlat(@RequestBody FlatEntity flat) {
+        long id = flat.getId();
+        if (!flatRepository.existsById(id))
             throw new ResourceNotFoundException(
-                    "There is already an flat with this id: " + flat.getId());
-        }
-        new ResponseEntity<>(flatRepository.save(flat), HttpStatus.OK);
+                    "There is no flat with this id: " + flat.getId());
+        return new ResponseEntity<>(flatRepository.saveAndFlush(flatRepository.save(flat)), HttpStatus.OK);
     }
 }
