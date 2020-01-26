@@ -1,9 +1,17 @@
+DROP TABLE IF EXISTS "developer";
 DROP TABLE IF EXISTS "payment_method_of_room";
 DROP TABLE IF EXISTS "payment_method";
 DROP TABLE IF EXISTS "booking";
 DROP TABLE IF EXISTS "room_image";
 DROP TABLE IF EXISTS "room";
 DROP TABLE IF EXISTS "users";
+
+CREATE TABLE IF NOT EXISTS "developer" --TODO DELETE before delivery
+(
+    id     SERIAL PRIMARY KEY,
+    login  varchar(100),
+    active varchar(1) default 'T'
+);
 
 CREATE TABLE IF NOT EXISTS "users"
 (
@@ -32,6 +40,7 @@ CREATE TABLE IF NOT EXISTS "room"
     description varchar(2000),
     city varchar(50),
     street varchar(50),
+    number_of_block varchar(50),
     number_of_street varchar(50),
     zip_code varchar(10),
     country varchar(50),
