@@ -29,6 +29,6 @@ public class DeveloperServiceImpl implements DeveloperService {
             logger.info("Developer with id {} updated.", id);
             return result;
         }
-        return null;
+        return DeveloperEntity.EMPTY;
     }
 }
