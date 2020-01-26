@@ -11,9 +11,9 @@ import javax.validation.constraints.Size;
 public class PaymentMethodsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "payment_method_id")
     private Long id;
     @Column(name = "name_of_method")
     @Size(min = 1, max = 40)
-    private Long id_payment_method;
+    private String name_of_method;
 }

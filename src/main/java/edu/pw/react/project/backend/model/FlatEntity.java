@@ -53,9 +53,9 @@ public class FlatEntity {
     @Size(min = 0, max = 50)
     private String number_of_street;
 
-    @Column(name = "number_of_flat")
+    @Column(name = "number_of_block")
     @Size(min = 0, max = 50)
-    private String numberOfFlat;
+    private String number_of_block;
 
     @Column(name = "zip_code")
     @Size(min = 0, max = 10)
@@ -87,11 +87,11 @@ public class FlatEntity {
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "payment_method_of_room",
-            joinColumns = { @JoinColumn(name = "id_room") },
-            inverseJoinColumns = { @JoinColumn(name = "id_payment_method") }
+            joinColumns = { @JoinColumn(name = "room_id") },
+            inverseJoinColumns = { @JoinColumn(name = "payment_method_id") }
     )
-    Set<PaymentMethodsEntity> paymentMethods = new HashSet<>();
+    Set<PaymentMethodsEntity> payment_methods = new HashSet<>();
 
-    @OneToMany(mappedBy="itemId")
+    @OneToMany(mappedBy="item_id")
     private Set<BookingEntity> room_bookings;
 }

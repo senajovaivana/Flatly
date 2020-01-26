@@ -52,11 +52,8 @@ VALUES (1,1, 'Bed and Breakfast',
  '2018-05-01', 'Bed & Breakfast is housed in a 400-year-old town house, located in the Canal District in the ' ||
 'Amsterdam city center. It offers modern decorated rooms with amenities such as Smart- TV and free WiFi.',
 'Amsterdam', 'Kerkstraat', '62', '5', '1017 GA', 'Netherlands', 100, '13:00', '23:00', '12:00', 4);
-INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_block,number_of_flat,zip_code,country,price,
-'Amsterdam', 'Kerkstraat', '62', '1017 GA', 'Netherlands', 100, '13:00', '23:00', '12:00', 4);
 INSERT INTO "room" (room_id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_street,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (2,2, 'Amsterdam Downtown Hotel', '2019-01-21',
 'This non-smoking hotel provides accommodation in the heart of Amsterdam, a 5-minute walk from' ||

@@ -19,13 +19,13 @@ export const initialState = {
         check_in_from: undefined,
         check_in_to: undefined,
         check_out: undefined,
-        payment_methods: undefined,
         country: undefined,
         city: undefined,
         street: undefined,
         number_of_street: undefined,
         zip_code: undefined,
-        room_image: undefined
+        room_image: undefined,
+        payment_methods: undefined
     },
     userDetail: undefined,
     bookings: undefined

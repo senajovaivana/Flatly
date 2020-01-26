@@ -2,10 +2,8 @@ package edu.pw.react.project.backend.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -33,4 +31,5 @@ public class BookingEntity {
     @Column(name = "active")
     @Size(min = 1, max = 1)
     private char active;
+
 }

@@ -36,6 +36,7 @@ class RoomDetail extends Component {
                 room_image: undefined,
                 active: "T",
                 end_date: null,
+                payment_methods: undefined
             },
             selectedFile: undefined
         };
@@ -60,6 +61,7 @@ class RoomDetail extends Component {
             flatDetail:
                 {...this.state.flatDetail, name_of_room: e.target.value}
         });
+        console.log(this.state.flatDetail)
     }
 
     onChangeDescription(e) {
