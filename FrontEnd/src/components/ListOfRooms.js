@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import '../css/ListOfRooms.css';
 import {Container, Row, Col, ButtonGroup, Button} from 'reactstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash, faPen, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faPen, faPlus, faBook} from "@fortawesome/free-solid-svg-icons";
 import logo from '../flat.jpg';
 import { connect } from 'react-redux'
 import {flatDeleted, flatsLoaded} from '../redux/actions/flatsActions'
 import { withRouter } from 'react-router-dom'
+import ReservationsOfFlat from "./ReservationsOfFlat";
+import Layout from "./layout/Layout";
 
 class ListOfRooms extends Component {
     constructor(props) {
@@ -26,17 +28,28 @@ class ListOfRooms extends Component {
         }
     }
 
+    renderImage(room_image) {
+        if (room_image !== null) {
+            if (room_image.content !== "") {
+                let base64 = require('base-64');
+                let decoded = base64.decode(room_image.content);
+                return <img src={`${decoded}`} className="offer-pic"/>
+            }
+        }
+        return <img src={logo} className="offer-pic"/>
+    }
+
     render() {
-        const { flats } = this.props;
+        const {flats} = this.props;
+        console.log(flats)
         return (
             <div className="App-header">
-                    <div className="nameOfPage">
-                        <h2>My Offers &nbsp; </h2>
-                        <Button value="" className='icon-add' onClick={this.onClickNewOffer}>
-                            <FontAwesomeIcon icon={faPlus}/>
-                        </Button>
-                    </div>
-
+                <div className="nameOfPage">
+                    <h2>My Offers &nbsp; </h2>
+                    <Button value="" className='icon-add' onClick={this.onClickNewOffer}>
+                        <FontAwesomeIcon icon={faPlus}/>
+                    </Button>
+                </div>
                 <br/>
                 <Container>
                     <Row>
@@ -45,26 +58,32 @@ class ListOfRooms extends Component {
                                 <Col className='container-offer' key={r.id}>
                                     <div className='small'>{r.name_of_room}</div>
                                     <Row>
-                                         <img src={logo} className="offer-pic"/>
+                                        {this.renderImage(r.room_image)}
                                     </Row>
                                     <Row>
                                         <ButtonGroup className={'icon-offer-box'}>
-                                            <Button value={r.id} onClick={() => this.onDetailClick(r.id)} className='icon-offer-manage'>
-                                                <FontAwesomeIcon icon={faPen }/>
+                                            <Button value={r.id} onClick={() => this.onDetailClick(r.id)}
+                                                    className='icon-offer-manage'>
+                                                <FontAwesomeIcon icon={faPen}/>
                                             </Button>
-                                            <Button value={r.id} onClick={() => { if(window.confirm('Are you sure you wish to delete this item?')) this.onDeleteClick(r.id)}} className='icon-offer-manage'>
-                                                 <FontAwesomeIcon icon={faTrash}/>
+                                            <Button value={r.id} href={`/reservations/flat/${r.id}`} className='icon-offer-manage'>
+                                                <FontAwesomeIcon icon={faBook}/>
+                                            </Button>
+                                            <Button value={r.id} onClick={() => {
+                                                if (window.confirm('Are you sure you wish to delete this item?')) this.onDeleteClick(r.id)
+                                            }} className='icon-offer-manage'>
+                                                <FontAwesomeIcon icon={faTrash}/>
                                             </Button>
                                         </ButtonGroup>
                                     </Row>
                                 </Col>
                             </>
-                            )}
-                        </Row>
-                    </Container>
-                </div>
-            );
-        }
+                        )}
+                    </Row>
+                </Container>
+            </div>
+        );
+    }
 
 
     onClickNewOffer() {
@@ -85,11 +104,11 @@ class ListOfRooms extends Component {
             body: JSON.stringify({id: id})
         })
             .then(res => {
-                if (res.status === 200) {
-                    this.props.dispatchDelete(id);
+                    if (res.status === 200) {
+                        this.props.dispatchDelete(id);
+                    }
                 }
-            }
-           );
+            );
     }
 }
 
@@ -104,7 +123,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchDelete: (id) => dispatch(flatDeleted(id)),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(ListOfRooms))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ListOfRooms))

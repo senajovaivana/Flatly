@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS "developer";
 DROP TABLE IF EXISTS "payment_method_of_room";
 DROP TABLE IF EXISTS "payment_method";
 DROP TABLE IF EXISTS "booking";
@@ -6,16 +5,9 @@ DROP TABLE IF EXISTS "room_image";
 DROP TABLE IF EXISTS "room";
 DROP TABLE IF EXISTS "users";
 
-CREATE TABLE IF NOT EXISTS "developer"
-(
-    id     SERIAL PRIMARY KEY,
-    login  varchar(100),
-    active varchar(1) default 'T'
-);
-
 CREATE TABLE IF NOT EXISTS "users"
 (
-    id SERIAL PRIMARY KEY,
+    users_id SERIAL PRIMARY KEY,
     login  varchar(40),
     password varchar(80),
     first_name  varchar(40),
@@ -25,13 +17,13 @@ CREATE TABLE IF NOT EXISTS "users"
 
 CREATE TABLE IF NOT EXISTS "payment_method"
 (
-    id SERIAL PRIMARY KEY,
+    payment_method_id SERIAL PRIMARY KEY,
     name_of_method varchar(40)
 );
 
 CREATE TABLE IF NOT EXISTS "room"
 (
-    id BIGSERIAL PRIMARY KEY,
+    room_id BIGSERIAL PRIMARY KEY,
     owner_of_room integer,
     name_of_room varchar(200),
     start_date date,
@@ -48,35 +40,35 @@ CREATE TABLE IF NOT EXISTS "room"
     check_in_to time,
     check_out time,
     limit_of_quests integer,
-    FOREIGN KEY (owner_of_room) REFERENCES users(id)
+    FOREIGN KEY (owner_of_room) REFERENCES users(users_id)
 );
 
 CREATE TABLE IF NOT EXISTS "payment_method_of_room"
 (
-    id_room integer,
-    id_payment_method integer,
-    PRIMARY KEY(id_room, id_payment_method),
-    FOREIGN KEY (id_room) REFERENCES room(id),
-    FOREIGN KEY (id_payment_method) REFERENCES payment_method(id)
+    room_id integer,
+    payment_method_id integer,
+    PRIMARY KEY(room_id, payment_method_id),
+    FOREIGN KEY (room_id) REFERENCES room(room_id),
+    FOREIGN KEY (payment_method_id) REFERENCES payment_method(payment_method_id)
 );
 
 CREATE TABLE IF NOT EXISTS "booking"
 (
-    id SERIAL PRIMARY KEY,
+    booking_id SERIAL PRIMARY KEY,
     owner_of_booking varchar(40),
     start_date date,
     end_date date,
     item_type varchar(1) default 'F',
-    item_id integer,
+    item_id int,
     active varchar(1) default 'T',
-    FOREIGN KEY (item_id) REFERENCES room(id)
+    FOREIGN KEY (item_id) REFERENCES room(room_id)
 );
 
 CREATE TABLE IF NOT EXISTS "room_image"
 (
-    id SERIAL PRIMARY KEY,
-    id_room integer,
+    room_image_id BIGSERIAL PRIMARY KEY,
+    room_id integer,
     content bytea,
-    FOREIGN KEY (id_room) REFERENCES room(id)
+    FOREIGN KEY (room_id) REFERENCES room(room_id)
 );
 

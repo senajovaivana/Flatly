@@ -1,4 +1,11 @@
-import {FLATS_LOADED, FLAT_DETAIL, FLAT_DELETED, FLAT_SAVED, FLAT_UPDATED} from '../constants/appConstaints';
+import {
+    FLATS_LOADED,
+    FLAT_DETAIL,
+    FLAT_DELETED,
+    FLAT_SAVED,
+    FLAT_UPDATED,
+    IMAGE_LOADED
+} from '../constants/appConstaints';
 
 export const flatsLoaded = (flats) => {
     return {

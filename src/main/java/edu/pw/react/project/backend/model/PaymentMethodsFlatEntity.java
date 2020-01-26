@@ -5,13 +5,13 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "room")
+@Table(name = "payment_method")
 @Data
 public class PaymentMethodsFlatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_room")
+    @Column(name = "room_id")
     private Long id_room;
-    @Column(name = "id_payment_method")
+    @Column(name = "payment_method_id")
     private Long id_payment_method;
 }

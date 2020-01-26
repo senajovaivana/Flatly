@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
+import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from "reactstrap/es";
 
 class TopNavigation extends Component {
 
@@ -33,10 +34,23 @@ class TopNavigation extends Component {
                                     <NavLink className='top-nav-link' href="/offers"> My offers &nbsp; | &nbsp;</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink className='top-nav-link' href="/profile"> My profile &nbsp; | &nbsp;</NavLink>
+                                    <NavLink className='top-nav-link' href="/reservations"> Reservations &nbsp; | &nbsp;</NavLink>
                                 </NavItem>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav caret>
+                                    </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>
+                                            <NavLink className='top-nav-link' href="/profile"> My profile</NavLink>
+                                        </DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem>
+                                            <NavLink className='top-nav-link' href="/"> Logout </NavLink>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
                                 <NavItem>
-                                    <NavLink className='top-nav-link' href="/"> Logout </NavLink>
+
                                 </NavItem>
                             </Nav>
                         </Collapse>

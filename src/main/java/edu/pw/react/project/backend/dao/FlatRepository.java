@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface FlatRepository extends JpaRepository<FlatEntity, Long> {
     @Transactional
@@ -16,6 +15,9 @@ public interface FlatRepository extends JpaRepository<FlatEntity, Long> {
     @Query("update FlatEntity u set u.active = 'F' where u.id = :id")
     int updateFlatToNonActive(@Param("id") Long id) ;
 
-    @Query("SELECT f FROM FlatEntity f where f.active = 'T' ")
+    @Query("select u from FlatEntity u where u.active = 'T'")
     Collection<FlatEntity> findAllActiveFlats();
+
+    @Query("select u from FlatEntity u where u.active = :active")
+    Collection<FlatEntity> findAllFlatsByParam(char active);
 }

@@ -14,9 +14,11 @@ import ListOfOffers from "./ListOfRooms";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { composeWithDevTools } from "redux-devtools-extension";
-import rootReducer from '../redux/reducers/flatsReducer'
+import rootReducer from '../redux/reducers/reducer'
 import PublicRoute from "./PublicRoute";
 import RoomDetailPage from "./RoomDetailPage";
+import ReservationsOfFlat from "./ReservationsOfFlat";
+import AllReservations from "./AllReservations";
 
 const store = createStore(rootReducer, {}, composeWithDevTools());
 
@@ -77,10 +79,15 @@ class App extends Component {
                             <MyProfile/>
                         </Layout>
                     </Route>
-                    <Route exact path="/reservations">
+                    <Route exact path="/reservations/flat/:id">
                         <Layout>
-                            <ListOfReservations
-                            reservations={reservations}/>
+                            <ReservationsOfFlat nameOfFlat={"fdf"}/>
+                        </Layout>
+                    </Route>
+
+                    <Route exact path="/reservations/">
+                        <Layout>
+                            <AllReservations/>
                         </Layout>
                     </Route>
                     <Route exact path="/offers">

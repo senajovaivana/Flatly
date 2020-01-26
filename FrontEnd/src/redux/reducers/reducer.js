@@ -5,7 +5,7 @@ import {
     FLAT_DELETED,
     FLAT_SAVED,
     FLAT_UPDATED,
-    USER_DETAIL_LOADED
+    USER_DETAIL_LOADED, IMAGE_LOADED, BOOKINGS_LOADED
 } from '../constants/appConstaints';
 
 export const initialState = {
@@ -25,12 +25,14 @@ export const initialState = {
         street: undefined,
         number_of_street: undefined,
         zip_code: undefined,
-        image: undefined
+        room_image: undefined
     },
-    userDetail: undefined
+    userDetail: undefined,
+    bookings: undefined
+
 };
 
-const flatsReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case FLATS_LOADED: {
             const { flats } = action.payload;
@@ -74,9 +76,13 @@ const flatsReducer = (state = initialState, action) => {
             const { userDetail } = action.payload;
             return { ...state, userDetail: userDetail};
         }
+        case BOOKINGS_LOADED: {
+            const { bookings } = action.payload;
+            return { ...state, bookings: bookings};
+        }
         default:
             return state
     }
 };
 
-export default flatsReducer;
+export default reducer;

@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 
@@ -14,7 +15,7 @@ public class FlatEntity {
     private static final long serialVersionUID = -1098893507296828343L;
 
     @Id
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "room_id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "owner_of_room")
     private int owner_of_room;
@@ -48,4 +49,7 @@ public class FlatEntity {
     private Time check_out;
     @Column(name = "limit_of_quests")
     private int limit_of_quests;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_id", referencedColumnName = "room_id")
+    private ImageEntity room_image;
 }

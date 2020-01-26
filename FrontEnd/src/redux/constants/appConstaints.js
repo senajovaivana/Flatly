@@ -8,3 +8,6 @@ export const FLAT_UPDATED = 'Flats/FLAT_UPDATED';
 
 //users
 export const USER_DETAIL_LOADED = 'Users/USER_DETAIL_LOADED';
+
+//bookings
+export const BOOKINGS_LOADED = 'Bookings/BOOKINGS_LOADED';

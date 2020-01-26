@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "users_id", updatable = false, nullable = false)
     private Long id;
     @Column(name = "login")
     private String login;
