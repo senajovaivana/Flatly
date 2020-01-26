@@ -17,25 +17,25 @@ VALUES ('Shark', 'F');
 INSERT INTO "developer" (login, active)
 VALUES ('Tiger', 'F');
 
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (1, 'user1@gmail.com','fgfdgfdgdfgdf', 'Martin', 'King');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (2, 'user2@gmail.com','fgfdgfdgdfgdf', 'Bob', 'Liev');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (3, 'user3@gmail.com','fgfdgfdgdfgdf', 'Karla', 'Huub');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (4, 'user4@gmail.com','fgfdgfdgdfgdf', 'Anna', 'Korta');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (5, 'user5@gmail.com','fgfdgfdgdfgdf', 'Paul', 'Porta');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (6, 'user6@gmail.com','fgfdgfdgdfgdf', 'Jean', 'King');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (7, 'user7@gmail.com','fgfdgfdgdfgdf', 'Lucas', 'Erl');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (8, 'user8@gmail.com','fgfdgfdgdfgdf', 'Hubert', 'Folsk');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (9, 'user9@gmail.com','fgfdgfdgdfgdf', 'Christina', 'Giraman');
-INSERT INTO "users" (id, login,password,first_name,last_name)
+INSERT INTO "user" (id, login,password,first_name,last_name)
 VALUES (10, 'user10@gmail.com','fgfdgfdgdfgdf', 'Mary', 'Hungbert');
 
 INSERT INTO "payment_method" (id,name_of_method)
@@ -46,88 +46,88 @@ INSERT INTO "payment_method" (id,name_of_method)
 VALUES (3,'viamo');
 
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (1,1, 'Bed and Breakfast',
  '2018-05-01', 'Bed & Breakfast is housed in a 400-year-old town house, located in the Canal District in the ' ||
 'Amsterdam city center. It offers modern decorated rooms with amenities such as Smart- TV and free WiFi.',
-'Amsterdam', 'Kerkstraat', '62', '1017 GA', 'Netherlands', 100, '13:00', '23:00', '12:00', 4);
+'Amsterdam', 'Kerkstraat', '62', '5', '1017 GA', 'Netherlands', 100, '13:00', '23:00', '12:00', 4);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (2,2, 'Amsterdam Downtown Hotel', '2019-01-21',
 'This non-smoking hotel provides accommodation in the heart of Amsterdam, a 5-minute walk from' ||
 ' Leidse Square and the Flower Market. Free Wi-Fi is available throughout the hotel.',
-'Amsterdam', 'Kerkstraat', '25', '1017 GA', 'Netherlands', 60, '14:00', '23:59', '10:00', 2);
+'Amsterdam', 'Kerkstraat', '25', '7', '1017 GA', 'Netherlands', 60, '14:00', '23:59', '10:00', 2);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (3,3, 'Nice apartment in the center of Warsaw',
 '2018-08-01', 'These apartments in Berlins city centre offer free Wi-Fi, self-catering kitchens,' ||
 ' and good transport links. Sights including the Museum Island are within easy reach.',
-'Berlín', 'Prentzlauer street', '7', '10243', 'Germany', 45, '13:00', '22:00', '12:00', 2);
+'Berlín', 'Prentzlauer street', '7', '11', '10243', 'Germany', 45, '13:00', '22:00', '12:00', 2);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (4,4, 'Junckers Hotel',  '2019-10-01', 'Located in Berlins trendy Friedrichshain district, ' ||
 'this traditional hotel is a 5-minute walk from Frankfurter Tor Underground Station. Free Wi-Fi and a cosy bar are' ||
-' offered here.', 'Berlín', 'Grünberger', '21', '10243', 'Germany', 100, '13:00', '23:59', '11:00', 2);
+' offered here.', 'Berlín', 'Grünberger', '21', '13', '10243', 'Germany', 100, '13:00', '23:59', '11:00', 2);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (5,5, 'Apartment for 2 in Warsaw',
 '2019-10-04', 'Flat includes shared bathroom fitted with a bath or4shower.
 Extras include free toiletries and a hairdryer. We also offer free WiFi.
 There is a shared kitchen at the property with space to cook and a lounge with a kettle,
-microwave and complementary tea and coffee.', 'Warsaw', 'Grybowska', '39', '00-864',
+microwave and complementary tea and coffee.', 'Warsaw', 'Grybowska', '39', '17', '00-864',
 'Poland', 100, '14:00', '23:59', '10:00', 2);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (6,5, 'ArtStudio Zielona', '2019-04-01',
 'Set in Warsaw, ArtStudio Zielona offers free WiFi, 4.4 km from Wilanow Palace and 5 km from Lazienki Palace.
 There is a fully equipped kitchen and a private bathroom. Frideric Chopins Monument is 5 km from the apartment, ' ||
 'while Royal Łazienki Park is 6 km away. The nearest airport is Warsaw Frederic Chopin Airport, 9 km from the apartment.',
-'Warsaw', 'Zielona', '44', '00-864', 'Poland', 80, '14:00', '23:59', '10:00', 2);
+'Warsaw', 'Zielona', '44',  '19', '00-864', 'Poland', 80, '14:00', '23:59', '10:00', 2);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (7,6, 'Apartment in the Warsaw',
 '2019-08-01', 'Flat includes shared bathroom fitted with a bath or4shower.
 Extras include free toiletries and a hairdryer. We also offer free WiFi.
 There is a shared kitchen at the property with space to cook and a lounge with a kettle,
-microwave and complementary tea and coffee.', 'Warsaw', 'Grybowska', '37', '00-864',
+microwave and complementary tea and coffee.', 'Warsaw', 'Grybowska', '37',  '23', '00-864',
 'Poland', 100, '14:00', '23:59', '10:00', 4);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (8,7, 'Apartment in the center of Krakow',
 '2017-01-01', 'Boasting garden views, Jewish Quarter Comfort - In City Apartments ' ||
 'features accommodation with a patio and a kettle, around 1.8 km from Wawel Royal Castle.',
-'Krakow', 'Krakowskia street', '54', '30-007', 'Poland', 150, '13:00', '23:59', '11:00', 5);
+'Krakow', 'Krakowskia street', '54',  '29', '30-007', 'Poland', 150, '13:00', '23:59', '11:00', 5);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (9,8, 'Villa Moko', '2019-10-01',
 'Set in Warsaw, 5 km from Frideric Chopins Monument, Villa Moko offers accommodation ' ||
 'with a shared lounge, free private parking, a garden and barbecue facilities.',
-'Warsaw', 'Mokotowska street', '78', '00-864', 'Poland', 60, '14:00', '23:59', '11:00', 3);
+'Warsaw', 'Mokotowska street', '78',  '31', '00-864', 'Poland', 60, '14:00', '23:59', '11:00', 3);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (10,9, 'ClickTheFlat apartment room',
 '2019-01-01', 'Conveniently located in the Sródmiescie district of Warsaw.' ||
 'Free WiFi is available and private parking can be arranged at an extra charge.' ||
 'The shared bathroom is fitted with a shower and a hairdryer.Nowy Świat Street is 2.7 km from the hostel, ' ||
 'while Saxon Garden is 2.9 km from the property. The nearest airport is Warsaw Frederic Chopin Airport, ' ||
- '9 km from the flat.', 'Warsaw', 'Hoza street', '2', '00-864', 'Poland', 80, '15:00', '23:00', '12:00', 2);
+ '9 km from the flat.', 'Warsaw', 'Hoza street', '2',  '37', '00-864', 'Poland', 80, '15:00', '23:00', '12:00', 2);
 INSERT INTO "room" (id,owner_of_room,name_of_room,start_date,
-description,city,street,number_of_street,zip_code,country,price,
+description,city,street,number_of_block,number_of_flat,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
 VALUES (11,10, 'Bed4city Szpitalna Street',
 '2018-10-01', 'Bed4city Szpitalna Street is a self-catering accommodation located in Warsaw’s city centre,' ||
 ' a 5-minute walk from the popular Nowy Świat Street and a 7-minute walk from the Palace of Culture.',
- 'Warsaw', 'Szpitalna street', '20', '00-864', 'Poland', 20, '15:00', '23:00', '12:00', 1);
+ 'Warsaw', 'Szpitalna street', '20',  '41', '00-864', 'Poland', 20, '15:00', '23:00', '12:00', 1);
 
 INSERT INTO "payment_method_of_room" (id_room,id_payment_method)
 VALUES (1,1);

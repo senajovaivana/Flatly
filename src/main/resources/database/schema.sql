@@ -6,14 +6,14 @@ DROP TABLE IF EXISTS "room_image";
 DROP TABLE IF EXISTS "room";
 DROP TABLE IF EXISTS "users";
 
-CREATE TABLE IF NOT EXISTS "developer"
+CREATE TABLE IF NOT EXISTS "developer" --TODO DELETE before delivery
 (
     id     SERIAL PRIMARY KEY,
     login  varchar(100),
     active varchar(1) default 'T'
 );
 
-CREATE TABLE IF NOT EXISTS "users"
+CREATE TABLE IF NOT EXISTS "user"
 (
     id SERIAL PRIMARY KEY,
     login  varchar(40),
@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS "room"
     description varchar(2000),
     city varchar(50),
     street varchar(50),
-    number_of_street varchar(50),
+    number_of_block varchar(50),
+    number_of_flat varchar(50),
     zip_code varchar(10),
     country varchar(50),
     price integer,
@@ -48,7 +49,7 @@ CREATE TABLE IF NOT EXISTS "room"
     check_in_to time,
     check_out time,
     limit_of_quests integer,
-    FOREIGN KEY (owner_of_room) REFERENCES users(id)
+    FOREIGN KEY (owner_of_room) REFERENCES "user"(id)
 );
 
 CREATE TABLE IF NOT EXISTS "payment_method_of_room"
@@ -56,8 +57,8 @@ CREATE TABLE IF NOT EXISTS "payment_method_of_room"
     id_room integer,
     id_payment_method integer,
     PRIMARY KEY(id_room, id_payment_method),
-    FOREIGN KEY (id_room) REFERENCES room(id),
-    FOREIGN KEY (id_payment_method) REFERENCES payment_method(id)
+    FOREIGN KEY (id_room) REFERENCES "room"(id),
+    FOREIGN KEY (id_payment_method) REFERENCES "payment_method"(id)
 );
 
 CREATE TABLE IF NOT EXISTS "booking"
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "booking"
     item_type varchar(1) default 'F',
     item_id integer,
     active varchar(1) default 'T',
-    FOREIGN KEY (item_id) REFERENCES room(id)
+    FOREIGN KEY (item_id) REFERENCES "room"(id)
 );
 
 CREATE TABLE IF NOT EXISTS "room_image"
@@ -77,6 +78,6 @@ CREATE TABLE IF NOT EXISTS "room_image"
     id SERIAL PRIMARY KEY,
     id_room integer,
     content bytea,
-    FOREIGN KEY (id_room) REFERENCES room(id)
+    FOREIGN KEY (id_room) REFERENCES "room"(id)
 );
 
