@@ -31,7 +31,6 @@ public class FlatEntity {
     private Date start_date;
 
     @Column(name = "active")
-    @Size(min = 1, max = 1)
     private char active;
 
     @Column(name = "end_date")
@@ -92,6 +91,7 @@ public class FlatEntity {
     )
     Set<PaymentMethodsEntity> payment_methods = new HashSet<>();
 
-    @OneToMany(mappedBy="item_id")
+    @OneToMany
+    @JoinColumn(name = "item_id", referencedColumnName = "room_id", insertable = false, updatable = false)
     private Set<BookingEntity> room_bookings;
 }
