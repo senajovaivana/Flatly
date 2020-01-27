@@ -91,6 +91,7 @@ public class FlatEntity {
     )
     Set<PaymentMethodsEntity> payment_methods = new HashSet<>();
 
-    @OneToMany(mappedBy="item_id")
+    @OneToMany
+    @JoinColumn(name = "item_id", referencedColumnName = "room_id", insertable = false, updatable = false)
     private Set<BookingEntity> room_bookings;
 }

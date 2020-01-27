@@ -49,12 +49,12 @@ CREATE TABLE IF NOT EXISTS "room"
     check_in_to time,
     check_out time,
     limit_of_quests integer,
-    FOREIGN KEY (owner_of_room) REFERENCES users(users_id)
+    FOREIGN KEY (owner_of_room) REFERENCES "users"(users_id)
 );
 
 CREATE TABLE IF NOT EXISTS "payment_method_of_room"
 (
-    room_id integer,
+    room_id bigint,
     payment_method_id integer,
     PRIMARY KEY(room_id, payment_method_id),
     FOREIGN KEY (room_id) REFERENCES room(room_id),
@@ -68,16 +68,16 @@ CREATE TABLE IF NOT EXISTS "booking"
     start_date date,
     end_date date,
     item_type varchar(1) default 'F',
-    item_id int,
+    item_id bigint,
     active varchar(1) default 'T',
-    FOREIGN KEY (item_id) REFERENCES room(room_id)
+    FOREIGN KEY (item_id) REFERENCES "room"(room_id)
 );
 
 CREATE TABLE IF NOT EXISTS "room_image"
 (
     room_image_id BIGSERIAL PRIMARY KEY,
-    room_id integer,
+    room_id bigint,
     content bytea,
-    FOREIGN KEY (room_id) REFERENCES room(room_id)
+    FOREIGN KEY (room_id) REFERENCES "room"(room_id)
 );
 
