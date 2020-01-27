@@ -14,7 +14,7 @@ class Layout extends Component {
                 <div>
                 <Container className="main-layout-page-wrapper themed-container">
                     <Row>
-                        <Col className="content" sm="12" md={{ size: 6, offset: 3}}>
+                        <Col className="content" sm="15" md={{ size: 8, offset: 2}}>
                             {renderPage()} {/*Every page is wrapped with this layout */}
                         </Col>
                     </Row>

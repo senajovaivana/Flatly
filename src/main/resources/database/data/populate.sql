@@ -62,7 +62,7 @@ VALUES (2,2, 'Amsterdam Downtown Hotel', '2019-01-21',
 INSERT INTO "room" (room_id,owner_of_room,name_of_room,start_date,
 description,city,street,number_of_block,number_of_street,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
-VALUES (3,3, 'Nice apartment in the center of Warsaw',
+VALUES (3,3, 'Nice apartment in Warsaw',
 '2018-08-01', 'These apartments in Berlins city centre offer free Wi-Fi, self-catering kitchens,' ||
 ' and good transport links. Sights including the Museum Island are within easy reach.',
 'Berlín', 'Prentzlauer street', '7', '11', '10243', 'Germany', 45, '13:00', '22:00', '12:00', 2);
@@ -101,7 +101,7 @@ microwave and complementary tea and coffee.', 'Warsaw', 'Grybowska', '37', '23',
 INSERT INTO "room" (room_id,owner_of_room,name_of_room,start_date,
 description,city,street,number_of_block,number_of_street,zip_code,country,price,
 check_in_from,check_in_to,check_out,limit_of_quests)
-VALUES (8,7, 'Apartment in the center of Krakow',
+VALUES (8,7, 'Apartment in Krakow',
 '2017-01-01', 'Boasting garden views, Jewish Quarter Comfort - In City Apartments ' ||
 'features accommodation with a patio and a kettle, around 1.8 km from Wawel Royal Castle.',
 'Krakow', 'Krakowskia street', '54', '29','30-007', 'Poland', 150, '13:00', '23:59', '11:00', 5);
@@ -211,7 +211,7 @@ VALUES ('person10', '2020-01-29', '2020-01-30', 11);
 INSERT INTO "booking" (owner_of_booking,start_date,end_date,item_id)
 VALUES ('person2', '2018-09-01', '2018-09-03', 1);
 INSERT INTO "booking" (owner_of_booking,start_date,end_date,item_id)
-VALUES ('person3', '2019-10-01', '2018-10-03', 3);
+VALUES ('person3', '2018-10-01', '2018-10-03', 3);
 INSERT INTO "booking" (owner_of_booking,start_date,end_date,item_id)
 VALUES ('person7', '2019-12-02', '2019-12-04', 4);
 INSERT INTO "booking" (owner_of_booking,start_date,end_date,item_id)

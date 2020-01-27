@@ -38,7 +38,8 @@ class RoomDetail extends Component {
                 end_date: null,
                 payment_methods: undefined
             },
-            selectedFile: undefined
+            selectedFile: undefined,
+            all_payment_methods: undefined
         };
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -54,6 +55,7 @@ class RoomDetail extends Component {
         this.onChangeNumberOfStreet = this.onChangeNumberOfStreet.bind(this);
         this.onChangeZipCode = this.onChangeZipCode.bind(this);
         this.onChangeImage = this.onChangeImage.bind(this);
+        this.onChangePaymentMethod = this.onChangePaymentMethod.bind(this);
     }
 
     onChangeName(e) {
@@ -152,13 +154,29 @@ class RoomDetail extends Component {
     }
 
     onChangeImage(e) {
-        e.preventDefault();
-        console.log(e.target.files)
-        this.setState({
-                selectedFile: e.target.files
-            }, () => console.log(this.state.selectedFile)
-        )
+        // e.preventDefault();
+        // console.log(e.target.files)
+        // this.setState({
+        //         selectedFile: e.target.files
+        //     }, () => console.log(this.state.selectedFile)
+        // )
     }
+
+    onChangePaymentMethod(e) {
+        const { options } = e.target;
+        let result = null;
+        let chosenMethods = [];
+        for (let i = 0, l = options.length; i < l; i += 1) {
+            if (options[i].selected) {
+                result = this.state.all_payment_methods.find(t => (t.id == options[i].value));
+                chosenMethods.push(result)
+            }
+        }
+        this.setState({
+            flatDetail:
+                {...this.state.flatDetail, payment_methods: chosenMethods}
+        }, () => console.log(this.state.selectedFile));
+     }
 
 
     componentDidMount() {
@@ -174,16 +192,16 @@ class RoomDetail extends Component {
                     this.setState({flatDetail: this.props.flatDetail})
                 });
         }
-        //TODO - fetch payment methods for flat for edit and also all possible for create
-
+        fetch(`http://localhost:8080/payment`)
+            .then((data) => data.json())
+            .then((methods) => {
+                this.setState({all_payment_methods: methods}, () => {
+                    console.log(this.state.all_payment_methods)})
+            });
     }
 
     componentWillUnmount() {
         this.props.dispatchUnload();
-    }
-
-    getPaymentMethods() {
-        return ['card', 'cash', 'viamo'];
     }
 
     renderImage() {
@@ -200,6 +218,13 @@ class RoomDetail extends Component {
         return <img src={logo} className="offer-pic"/>;
     }
 
+    renderSelectedPaymentMethods(method) {
+        let selected = false;
+        if (this.state.flatDetail.payment_methods !== undefined) {
+            selected = this.state.flatDetail.payment_methods.some(el => el.id === method.id)
+        }
+        return (<option key={method.id} value={method.id} selected={selected}>{method.name_of_method}</option>);
+    }
 
     render() {
         const {mode} = this.props;
@@ -297,10 +322,12 @@ class RoomDetail extends Component {
                     </Col>
                     <Col>
                         <Label>Payment method
-                            <Input type="select" multiple>
-                                {this.getPaymentMethods().map(method =>
-                                    <option key={method}>{method}</option>
-                                )}
+                            <Input type="select" multiple onChange={this.onChangePaymentMethod}>
+                                {this.state.all_payment_methods &&
+                                    this.state.all_payment_methods.map(method => {
+                                        return this.renderSelectedPaymentMethods(method)
+                                    })
+                                }
                             </Input>
                         </Label>
                     </Col>
@@ -333,7 +360,7 @@ class RoomDetail extends Component {
 
                     {isEdit &&
                     <Col>
-                        {/*TODO change link to /idOfFlat/reservations*/}
+                        {/*TODO change link*/}
                         <Button href={`/reservations/flat/${flatDetail.id}`} color="success" block size="lg"> Reservations </Button>
                     </Col>
                     }
@@ -354,38 +381,38 @@ class RoomDetail extends Component {
     onClickSave(mode) {
         const idFlat = (mode === "create") ? Date.now() : this.state.flatDetail.id;
         //add images to database
-        let image = this.state.selectedFile[0];
-        console.log(image)
+       // let image = this.state.selectedFile[0];
+        //console.log(image)
         let errorImagesInserted = false;
-        let imageFile = null;
-        if (image) {
-            console.log("tu")
-            let reader = new FileReader();
-            reader.onload = function (r) {
-                this.setState({
-                    room_image: r.target.result
-                });
-                reader.readAsDataURL(image);
-                imageFile = {id: Date.now(), content: reader.result, room_id: idFlat};
-                console.log(imageFile)
-                console.log(reader)
-
-                fetch("http://localhost:8080/images", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json"
-                    },
-                    body: JSON.stringify(imageFile)
-                }).then(r => {
-                    console.log(r)
-                    if (r.status !== 200) {
-                        errorImagesInserted = true;
-                    } else {
-                        console.log("inserted image")
-                    }
-                });
-            }
+        //let imageFile = null;
+        // if (image) {
+        //     console.log("tu")
+        //     let reader = new FileReader();
+        //     reader.onload = function (r) {
+        //         this.setState({
+        //             room_image: r.target.result
+        //         });
+        //         reader.readAsDataURL(image);
+        //         imageFile = {id: Date.now(), content: reader.result, room_id: idFlat};
+        //         console.log(imageFile)
+        //         console.log(reader)
+        //
+        //         fetch("http://localhost:8080/images", {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 Accept: "application/json"
+        //             },
+        //             body: JSON.stringify(imageFile)
+        //         }).then(r => {
+        //             console.log(r)
+        //             if (r.status !== 200) {
+        //                 errorImagesInserted = true;
+        //             } else {
+        //                 console.log("inserted image")
+        //             }
+        //         });
+        //     }
 
             if (!errorImagesInserted) {
                 if (mode === "create") {
@@ -429,7 +456,7 @@ class RoomDetail extends Component {
                     });
                 }
             }
-        }
+        //}
     }
 }
 
