@@ -31,7 +31,6 @@ public class FlatEntity {
     private Date start_date;
 
     @Column(name = "active")
-    @Size(min = 1, max = 1)
     private char active;
 
     @Column(name = "end_date")
