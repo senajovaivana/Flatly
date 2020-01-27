@@ -28,7 +28,8 @@ public class BookingEntity {
     private char item_type;
 
     @Column(name = "item_id")
-    private long item_id;
+    private Long item_id;
+
     @Column(name = "active")
     private char active;
 
