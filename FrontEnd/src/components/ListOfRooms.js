@@ -1,21 +1,23 @@
 import React, {Component} from 'react';
 import '../css/ListOfRooms.css';
-import {Container, Row, Col, ButtonGroup, Button} from 'reactstrap';
+import {Container, Row, Col, ButtonGroup, Button, Input} from 'reactstrap';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash, faPen, faPlus, faBook} from "@fortawesome/free-solid-svg-icons";
 import logo from '../flat.jpg';
 import { connect } from 'react-redux'
 import {flatDeleted, flatsLoaded} from '../redux/actions/flatsActions'
 import { withRouter } from 'react-router-dom'
-import ReservationsOfFlat from "./ReservationsOfFlat";
-import Layout from "./layout/Layout";
 
 class ListOfRooms extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            filtered : []
+        };
         this.onDetailClick = this.onDetailClick.bind(this);
         this.onDeleteClick = this.onDeleteClick.bind(this);
         this.onClickNewOffer = this.onClickNewOffer.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount() {
@@ -24,6 +26,9 @@ class ListOfRooms extends Component {
                 .then((data) => data.json())
                 .then((flats) => {
                     this.props.flatsLoaded(flats);
+                    this.setState({
+                        filtered: flats
+                    });
                 });
         }
     }
@@ -39,21 +44,53 @@ class ListOfRooms extends Component {
         return <img src={logo} className="offer-pic"/>
     }
 
+    handleSearch(e) {
+        let currentList = [];
+        let newList = [];
+
+        if (e.target.value !== "") {
+            currentList = this.props.flats;
+            newList = currentList.filter(item => {
+                // change to lowercase
+                const lc = item.name_of_room.toLowerCase();
+                const lc2 = item.city.toLowerCase();
+                const filter = e.target.value.toLowerCase();
+                return lc.includes(filter) || lc2.includes(filter);
+            });
+        } else {
+            newList = this.props.flats;
+        }
+        this.setState({
+            filtered: newList
+        });
+    }
+
     render() {
-        const {flats} = this.props;
-        console.log(flats)
         return (
             <div className="App-header">
                 <div className="nameOfPage">
-                    <h2>My Offers &nbsp; </h2>
-                    <Button value="" className='icon-add' onClick={this.onClickNewOffer}>
-                        <FontAwesomeIcon icon={faPlus}/>
-                    </Button>
+
+                    <Row>
+                        <Col md={2}>
+                            <Button value="" className='icon-add' onClick={this.onClickNewOffer}>
+                                <FontAwesomeIcon icon={faPlus}/>
+                            </Button>
+                        </Col>
+                        <Col>
+                            <h2>My Offers &nbsp; </h2>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Input type="text" className='search-input' onChange={this.handleSearch} placeholder="Search by name or city..." />
+                        </Col>
+                    </Row>
+
                 </div>
                 <br/>
                 <Container>
                     <Row>
-                        {flats && flats.map(r =>
+                        {this.state.filtered && this.state.filtered.map(r =>
                             <>
                                 <Col className='container-offer' key={r.id}>
                                     <div className='small'>{r.name_of_room}</div>
@@ -108,7 +145,12 @@ class ListOfRooms extends Component {
                         this.props.dispatchDelete(id);
                     }
                 }
-            );
+            )
+            .then(() => {
+                this.setState({
+                    filtered: this.props.flats
+                });
+            });
     }
 }
 

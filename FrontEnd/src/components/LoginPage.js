@@ -3,6 +3,9 @@ import "../css/Login.css";
 import { Container, Row, Col, Input, Button, FormGroup, Label}
     from 'reactstrap';
 import {withRouter} from "react-router";
+import AuthHelperMethods from "./AuthHelperMethods";
+
+const Auth = new AuthHelperMethods();
 
 class LoginPage extends Component {
     constructor(props) {
@@ -79,6 +82,16 @@ class LoginPage extends Component {
     //             }
     //         );
     //
+        Auth.login(this.state.login, this.state.password)
+            .then(res => {
+                if (res === false) {
+                    return alert("Sorry those credentials don't exist!");
+                }
+                this.props.history.replace("/");
+            })
+            .catch(err => {
+                alert(err);
+            });
         this.props.history.push("/home");
     }
 

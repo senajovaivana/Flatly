@@ -91,8 +91,8 @@ const ListOfReservations  = ({
                 {header}
             </h2>
             <br/>
-            <BootstrapTable keyField='id' data={ reservations } columns={ columns } filter={ filterFactory() }
-                            rowStyle={ rowStyle } defaultSorted={ defaultSorted } expandRow={ expandRow } />
+            <BootstrapTable keyField='id' data={ reservations } defaultSorted={ defaultSorted } columns={ columns }
+                            filter={ filterFactory() } rowStyle={ rowStyle }  expandRow={ expandRow } />
             {/*<Table responsive bordered className='tableOfReservations'>*/}
             {/*    <thead>*/}
             {/*    <tr>*/}

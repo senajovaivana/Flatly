@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import "../css/RoomDetail.css";
+import "../css/Login.css";
 import {
     Container, Col, Row, Form, CustomInput, ButtonGroup,
     FormGroup, Label, Input,
@@ -364,6 +365,9 @@ class RoomDetail extends Component {
                         <Button href={`/reservations/flat/${flatDetail.id}`} color="success" block size="lg"> Reservations </Button>
                     </Col>
                     }
+                    <Col>
+                        {!this.validate() && <div className="message">You must fill all fields.</div>}
+                    </Col>
                     <Col className='btns'>
                         <FormGroup>
                             <ButtonGroup>
@@ -379,40 +383,41 @@ class RoomDetail extends Component {
     }
 
     onClickSave(mode) {
-        const idFlat = (mode === "create") ? Date.now() : this.state.flatDetail.id;
-        //add images to database
-       // let image = this.state.selectedFile[0];
-        //console.log(image)
-        let errorImagesInserted = false;
-        //let imageFile = null;
-        // if (image) {
-        //     console.log("tu")
-        //     let reader = new FileReader();
-        //     reader.onload = function (r) {
-        //         this.setState({
-        //             room_image: r.target.result
-        //         });
-        //         reader.readAsDataURL(image);
-        //         imageFile = {id: Date.now(), content: reader.result, room_id: idFlat};
-        //         console.log(imageFile)
-        //         console.log(reader)
-        //
-        //         fetch("http://localhost:8080/images", {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //                 Accept: "application/json"
-        //             },
-        //             body: JSON.stringify(imageFile)
-        //         }).then(r => {
-        //             console.log(r)
-        //             if (r.status !== 200) {
-        //                 errorImagesInserted = true;
-        //             } else {
-        //                 console.log("inserted image")
-        //             }
-        //         });
-        //     }
+        if (this.validate()) {
+            const idFlat = (mode === "create") ? Date.now() : this.state.flatDetail.id;
+            //add images to database
+           // let image = this.state.selectedFile[0];
+            //console.log(image)
+            let errorImagesInserted = false;
+            //let imageFile = null;
+            // if (image) {
+            //     console.log("tu")
+            //     let reader = new FileReader();
+            //     reader.onload = function (r) {
+            //         this.setState({
+            //             room_image: r.target.result
+            //         });
+            //         reader.readAsDataURL(image);
+            //         imageFile = {id: Date.now(), content: reader.result, room_id: idFlat};
+            //         console.log(imageFile)
+            //         console.log(reader)
+            //
+            //         fetch("http://localhost:8080/images", {
+            //             method: "POST",
+            //             headers: {
+            //                 "Content-Type": "application/json",
+            //                 Accept: "application/json"
+            //             },
+            //             body: JSON.stringify(imageFile)
+            //         }).then(r => {
+            //             console.log(r)
+            //             if (r.status !== 200) {
+            //                 errorImagesInserted = true;
+            //             } else {
+            //                 console.log("inserted image")
+            //             }
+            //         });
+            //     }
 
             if (!errorImagesInserted) {
                 if (mode === "create") {
@@ -456,7 +461,12 @@ class RoomDetail extends Component {
                     });
                 }
             }
-        //}
+        }
+    }
+
+    validate() {
+        console.log(!Object.values(this.state.flatDetail).some(x => (x === undefined || x === '')))
+        return !Object.values(this.state.flatDetail).some(x => (x === undefined || x === ''));
     }
 }
 

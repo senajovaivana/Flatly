@@ -11,6 +11,8 @@
     "bootstrap": "^4.4.1",
     "connected-react-router": "^6.6.1",
     "history": "latest",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-bootstrap-table2-paginator": "^2.1.0",
