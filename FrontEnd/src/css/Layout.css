@@ -4,6 +4,14 @@ body {
     font-family: "Comic Sans MS", serif;
 }
 
+body a {
+    color: white;
+}
+
+body a:hover {
+    color: #5cb85c;
+}
+
 .top-nav-link {
     color: #282c34 !important;
 }

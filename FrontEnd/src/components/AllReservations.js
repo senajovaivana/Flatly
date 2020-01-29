@@ -11,8 +11,9 @@ class AllReservations extends React.Component {
     }
 
     componentDidMount() {
-        let id = this.props.match.params.id;
-        fetch(`http://localhost:8080/bookings`)
+        //TODO change to id of logged user
+        let id = 1;
+        fetch(`http://localhost:8080/bookings?id=${id}`)
             .then((data) => data.json())
             .then((reservations) => {
                 console.log(reservations)

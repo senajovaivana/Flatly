@@ -21,8 +21,10 @@ class ListOfRooms extends Component {
     }
 
     componentDidMount() {
+        //TODO change to logged user
+        let id = 1;
         if (this.props.flats === undefined) {
-            fetch('http://localhost:8080/flats')
+            fetch(`http://localhost:8080/flats?id=${id}`)
                 .then((data) => data.json())
                 .then((flats) => {
                     this.props.flatsLoaded(flats);
@@ -30,6 +32,10 @@ class ListOfRooms extends Component {
                         filtered: flats
                     });
                 });
+        } else {
+            this.setState({
+                filtered: this.props.flats
+            });
         }
     }
 
@@ -72,7 +78,7 @@ class ListOfRooms extends Component {
 
                     <Row>
                         <Col md={2}>
-                            <Button value="" className='icon-add' onClick={this.onClickNewOffer}>
+                            <Button value="" className='icon-add icon-offer-manage' onClick={this.onClickNewOffer}>
                                 <FontAwesomeIcon icon={faPlus}/>
                             </Button>
                         </Col>

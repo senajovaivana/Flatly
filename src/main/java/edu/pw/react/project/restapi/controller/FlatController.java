@@ -24,14 +24,14 @@ public class FlatController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "")
-    public ResponseEntity<Collection<FlatEntity>> getAllFlats() {
+    public ResponseEntity<Collection<FlatEntity>> getAllFlats(@RequestParam Long id) {
         System.out.println("Getting All flats");
-        return ResponseEntity.ok(flatRepository.findAllActiveFlats());
+        return ResponseEntity.ok(flatRepository.findAllFlats(id));
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/{id}")
-    public ResponseEntity<FlatEntity> getFlatById( @PathVariable Long id) {
+    public ResponseEntity<FlatEntity> getFlatById(@PathVariable Long id) {
         System.out.println("Getting flat");
         FlatEntity f = flatRepository.findById(id).orElseGet(FlatEntity::new);
         return new ResponseEntity<>(f, HttpStatus.OK);

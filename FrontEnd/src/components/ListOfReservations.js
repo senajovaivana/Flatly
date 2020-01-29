@@ -1,18 +1,20 @@
 import React from 'react';
 import {Table} from 'reactstrap';
 import '../css/ListOfReservations.css'
+import '../css/Login.css'
 import * as moment from 'moment';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import  { dateFilter } from 'react-bootstrap-table2-filter';
 import { selectFilter } from 'react-bootstrap-table2-filter';
+import {Button} from 'reactstrap';
 
 const ListOfReservations  = ({
                                  reservations,
                                  forCurrentFlat,
                                  nameOfFlat
                              }) => {
-    let header = forCurrentFlat === 0 ? "List of reservations" : "Reservations for " + nameOfFlat;
+    let header = forCurrentFlat === 0 ? "List of reservations" : "Reservations for flat " + nameOfFlat;
     const headerStyle = {
         color: '#e2e3e5',
         backgroundColor: '#343a40'
@@ -25,7 +27,7 @@ const ListOfReservations  = ({
     function activeFormatter(cell, row) {
         if (cell === "F") {
             return (
-                <p>Yes</p>
+                <p className="message">Yes</p>
             );
         }
         return (
@@ -35,7 +37,12 @@ const ListOfReservations  = ({
     }
     function dateFormatter(cell, row) {
         return (
-            <p>{moment(cell).format('DD-MM-YYYY')}</p>
+            <p>{moment.utc(cell).format('DD-MM-YYYY')}</p>
+        );
+    }
+    function flatDetailFormatter(cell, row) {
+        return (
+            <a href={`/offers/edit/${cell}`}>{cell}</a>
         );
     }
     const columns = [{
@@ -43,6 +50,7 @@ const ListOfReservations  = ({
         text: 'Flat',
         headerStyle: headerStyle,
         filter: textFilter(),
+        formatter: flatDetailFormatter,
     }, {
         dataField: 'start_date',
         text: 'Date of arrival',

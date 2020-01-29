@@ -1,5 +1,6 @@
 package edu.pw.react.project.backend.dao;
 
+import edu.pw.react.project.backend.model.BookingEntity;
 import edu.pw.react.project.backend.model.FlatEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -16,8 +17,11 @@ public interface FlatRepository extends JpaRepository<FlatEntity, Long>, JpaSpec
     @Query("update FlatEntity u set u.active = 'F' where u.id = :id")
     int updateFlatToNonActive(@Param("id") Long id) ;
 
-    @Query("select u from FlatEntity u where u.active = 'T'")
-    Collection<FlatEntity> findAllActiveFlats();
+    @Query("select u from FlatEntity u where u.owner_of_room = :idUser order by u.name_of_room")
+    Collection<FlatEntity> findAllFlats(Long idUser);
+
+    @Query("select u.room_bookings from FlatEntity u where u.owner_of_room = :idUser")
+    Collection<BookingEntity> findAllReservations(Long idUser);
 
     @Query("select u from FlatEntity u where u.active = :active")
     Collection<FlatEntity> findAllFlatsByParam(char active);

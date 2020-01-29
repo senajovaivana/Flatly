@@ -11,10 +11,15 @@ import {bookingsLoaded} from "../redux/actions/bookingsActions";
 class ReservationsOfFlat extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            idFlat : null
+        }
     }
 
     componentDidMount() {
         let id = this.props.match.params.id;
+        this.setState({idFlat: id});
+        console.log(id)
         fetch(`http://localhost:8080/bookings/flat/${id}`)
             .then((data) => data.json())
             .then((reservations) => {
@@ -25,12 +30,13 @@ class ReservationsOfFlat extends React.Component {
 
     render() {
         const bookings = this.props.bookings;
-        let nameOfFlat = this.props.nameOfFlat;
+        //let nameOfFlat = this.props.nameOfFlat;
+        let idFlat = this.state.idFlat;
         return (
             <div>
                 {bookings && <ListOfReservations reservations={bookings}
                                                  forCurrentFlat={1}
-                                                 nameOfFlat={nameOfFlat}/>}
+                                                 nameOfFlat={idFlat}/>}
             </div>
         );
     }

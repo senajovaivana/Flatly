@@ -22,7 +22,7 @@ public class FlatEntity {
     private Long id;
 
     @Column(name = "owner_of_room")
-    private int owner_of_room;
+    private Long owner_of_room;
 
     @Column(name = "name_of_room")
     private String name_of_room;

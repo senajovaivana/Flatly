@@ -371,7 +371,7 @@ class RoomDetail extends Component {
                     <Col className='btns'>
                         <FormGroup>
                             <ButtonGroup>
-                                <Button className='btn-green-hover'
+                                <Button className='btn-green-hover' disabled={!this.validate()}
                                         onClick={() => this.onClickSave(this.props.mode)}> Save </Button>
                                 <Button href='/offers' className='btn-green-hover'> Cancel </Button>
                             </ButtonGroup>
