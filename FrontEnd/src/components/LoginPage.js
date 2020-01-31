@@ -4,6 +4,8 @@ import { Container, Row, Col, Input, Button, FormGroup, Label}
     from 'reactstrap';
 import {withRouter} from "react-router";
 import AuthHelperMethods from "./AuthHelperMethods";
+import {connect} from "react-redux";
+
 
 const Auth = new AuthHelperMethods();
 
@@ -12,12 +14,30 @@ class LoginPage extends Component {
         super(props);
         this.state = {
             login: "",
-            password: ""
+            password: "",
+            errorp : " "
         };
         this.handleChangeLogin = this.handleChangeLogin.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+
         this.logIn = this.logIn.bind(this);
     }
+
+    validatePassword=(value)=>{
+
+
+        if (value.length<8)
+        {
+            this.setState({ errorp:'Password must be at least 8 characters !!' })
+        }
+        else
+        {
+            this.setState({ errorp: '' })
+        }
+
+
+    }
+
 
     render() {
         return (
@@ -34,12 +54,13 @@ class LoginPage extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label>Email
-                                            <Input type="text" value={this.state.login} onChange={this.handleChangeLogin}/>
+                                            <Input type="text" value={this.state.login} onChange={this.handleChangeLogin} />
                                         </Label>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label>Password
-                                            <Input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                                            <Input type="password" value={this.state.password} onChange={this.handleChangePassword}  />
+                                            {/*{!this.state.validatePassword ? null : <label>wrong Password</label>}*/}
                                         </Label>
                                     </FormGroup>
                                     <Button color="success" size="lg" onClick={this.logIn}> Submit </Button>
@@ -97,4 +118,18 @@ class LoginPage extends Component {
 
 }
 
-export default (withRouter(LoginPage));
+const mapStateToProps = state => {
+    return {
+        // user: state.user
+    };
+};
+
+const mapDispatchToProps = dispatch => ({
+    // fetchuser: uname => dispatch(fetchuser(uname))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(LoginPage));
+
