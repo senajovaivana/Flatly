@@ -1,18 +1,20 @@
 package edu.pw.react.project.middleware.service;
 
+
 import edu.pw.react.project.backend.dao.BookingRepository;
 import edu.pw.react.project.backend.model.BookingEntity;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class BookingServiceImpl implements BookingService {
 
 
-    //private final Logger logger = (Logger) LoggerFactory.getLogger(BookingServiceImpl.class);
+    private final Logger logger = (Logger) LoggerFactory.getLogger(BookingServiceImpl.class);
         private BookingRepository repository;
 
         BookingServiceImpl() { }
@@ -28,7 +30,7 @@ public class BookingServiceImpl implements BookingService {
             if (repository.existsById(id)) {
                 updatedBooking.setId(id);
                 result = repository.save(updatedBooking);
-              // logger.info("Booking  is updated.", id);
+               logger.info("Booking  id {} is updated.", id);
             }
             return result;
         }
@@ -38,7 +40,7 @@ public class BookingServiceImpl implements BookingService {
             boolean result = false;
             if (repository.existsById(id)) {
                 repository.deleteById(id);
-             //  logger.info("Booking  id {}  is deleted.", id);
+             logger.info("Booking  id {}  is deleted.", id);
                 result = true;
             }
             return result;

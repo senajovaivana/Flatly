@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "room", schema = "public")
 @Data
 public class FlatEntity {
+    public static FlatEntity EMPTY = new FlatEntity();
     private static final long serialVersionUID = -1098893507296828343L;
 
     @Id
