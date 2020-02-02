@@ -9,13 +9,18 @@ class AuthHelperMethods extends Component {
         super(props);
     }
 
-    login = (username, password) => {
+    login = (login, password) => {
         // Get a token from api server using the fetch api
-        return this.fetch(`/log-in`, {
+        return this.fetch(`http://localhost:8081/users`, {
             method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
-                username,
+                login,
                 password
+
             })
         }).then(res => {
             this.setToken(res.token); // Setting the token in localStorage
@@ -44,17 +49,17 @@ class AuthHelperMethods extends Component {
 
     setToken = idToken => {
         // Saves user token to localStorage
-        localStorage.setItem("id_token", idToken);
+        localStorage.setItem("security_token", idToken);
     };
 
     getToken = () => {
         // Retrieves the user token from localStorage
-        return localStorage.getItem("id_token");
+        return localStorage.getItem("security_token");
     };
 
     logout = () => {
         // Clear user token and profile data from localStorage
-        localStorage.removeItem("id_token");
+        localStorage.removeItem("security_token");
     };
 
     getConfirm = () => {
