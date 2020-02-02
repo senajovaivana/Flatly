@@ -3,7 +3,7 @@ package edu.pw.react.project.middleware.service;
 import edu.pw.react.project.backend.dao.DeveloperRepository;
 import edu.pw.react.project.backend.model.DeveloperEntity;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
+
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
+@Deprecated
 public class DeveloperServiceImplTest {
 
     @Mock
@@ -43,7 +44,7 @@ public class DeveloperServiceImplTest {
 
 
     @Test
-    @DisplayName("When trying to update non existing developer Return DeveloperEntityEMPTY")
+    //@DisplayName("When trying to update non existing developer Return DeveloperEntityEMPTY")
     public void givenNotExistingId_whenUpdateDeveloper_thenReturnDeveloperEMPTY() {
         when(repository.existsById(anyLong())).thenReturn(false);
         DeveloperEntity actual = developerService.updateDeveloper(-999999L, new DeveloperEntity());
@@ -54,7 +55,7 @@ public class DeveloperServiceImplTest {
         verify(repository, times(0)).save(any(DeveloperEntity.class));
     }
 
-    @DisplayName("When trying to update existing developer Return updated DeveloperEntity")
+    //@DisplayName("When trying to update existing developer Return updated DeveloperEntity")
     @Test
     public void givenExistingId_whenUpdateDeveloper_thenReturnUpdatedDeveloper() {
         DeveloperEntity updatedDeveloper = new DeveloperEntity();
