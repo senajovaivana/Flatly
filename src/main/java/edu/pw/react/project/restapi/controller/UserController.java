@@ -26,10 +26,18 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path = "/")
-    public ResponseEntity<Boolean> checkUser(@RequestBody UserEntity userEntity) {
+    @PostMapping(path = "")
+    public ResponseEntity<UserEntity> checkUser(@RequestBody UserEntity userEntity) {
         UserEntity u = userRepository.findByLogin(userEntity.getLogin());
-        return new ResponseEntity<>( u.getPassword().equals(userEntity.getPassword()), HttpStatus.OK);
+        if (u == null) {
+            throw new ResourceNotFoundException(
+                    "Creditials are not correct: " + userEntity.getId());
+        } else {
+            if (!u.getPassword().equals(userEntity.getPassword()))
+                throw new ResourceNotFoundException(
+                        "Creditials are not correct: " + userEntity.getId());
+        }
+        return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
