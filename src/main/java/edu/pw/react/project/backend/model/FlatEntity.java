@@ -6,19 +6,20 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Time;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 @Entity
 
 @Table(name = "room", schema = "public")
 @Data
 public class FlatEntity {
-    public static FlatEntity EMPTY = new FlatEntity();
+
     private static final long serialVersionUID = -1098893507296828343L;
 
+    public static FlatEntity EMPTY = new FlatEntity();
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "room_id", updatable = false, nullable = false)
     private Long id;
 
@@ -90,7 +91,7 @@ public class FlatEntity {
             joinColumns = { @JoinColumn(name = "room_id") },
             inverseJoinColumns = { @JoinColumn(name = "payment_method_id") }
     )
-    Set<PaymentMethodsEntity> payment_methods = new HashSet<>();
+    Set<PaymentMethodsEntity> payment_methods;
 
     @OneToMany
     @JoinColumn(name = "item_id", referencedColumnName = "room_id", insertable = false, updatable = false)

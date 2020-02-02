@@ -6,14 +6,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "developer")
+@Table(name = "developer", schema = "public")
 @Data
+@Deprecated
 public class DeveloperEntity {
-
-    public static DeveloperEntity EMPTY = new DeveloperEntity();
 
     private static final long serialVersionUID = -1098893507296828343L;
 
+    public static DeveloperEntity EMPTY = new DeveloperEntity();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
