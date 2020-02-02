@@ -11,7 +11,7 @@ class AuthHelperMethods extends Component {
 
     login = (login, password) => {
         // Get a token from api server using the fetch api
-        return this.fetch(`http://localhost:8081/users`, {
+        return this.fetch(`http://localhost:8080/users`, {
             method: "POST",
             headers: {
                 Accept: 'application/json',
