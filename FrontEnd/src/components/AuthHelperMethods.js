@@ -23,6 +23,7 @@ class AuthHelperMethods extends Component {
 
             })
         }).then(res => {
+            console.log(res);
             this.setToken(res.token); // Setting the token in localStorage
             return Promise.resolve(res);
         });
