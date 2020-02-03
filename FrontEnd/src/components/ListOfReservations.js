@@ -12,7 +12,7 @@ const ListOfReservations  = ({
                                  forCurrentFlat,
                                  nameOfFlat
                              }) => {
-    let header = forCurrentFlat === 0 ? "List of reservations" : "Reservations for " + nameOfFlat;
+    let header = forCurrentFlat === 0 ? "List of reservations" : "Reservations for flat " + nameOfFlat;
     const headerStyle = {
         color: '#e2e3e5',
         backgroundColor: '#343a40'

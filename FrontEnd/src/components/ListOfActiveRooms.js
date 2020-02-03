@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom'
 
 import {idUser} from "./AuthHelperMethods"
 
-class ListOfRooms extends Component {
+class ListOfActiveRooms extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -83,7 +83,7 @@ class ListOfRooms extends Component {
                             </Button>
                         </Col>
                         <Col>
-                            <h2>My Offers &nbsp; </h2>
+                            <h2>My offers &nbsp; </h2>
                         </Col>
                     </Row>
                     <Row>
@@ -171,4 +171,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatchDelete: (id) => dispatch(flatDeleted(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ListOfRooms))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ListOfActiveRooms))

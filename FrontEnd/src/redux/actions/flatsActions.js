@@ -3,7 +3,8 @@ import {
     FLAT_DETAIL,
     FLAT_DELETED,
     FLAT_SAVED,
-    FLAT_UPDATED
+    FLAT_UPDATED,
+    FLATS_NONACTIVE_LOADED
 } from '../constants/appConstaints';
 
 export const flatsLoaded = (flats) => {
@@ -48,6 +49,15 @@ export const flatUpdated = (flatDetail) => {
         type: FLAT_UPDATED,
         payload: {
             flatDetail
+        }
+    };
+};
+
+export const flatsNonactiveLoaded = (flatsNonactive) => {
+    return {
+        type: FLATS_NONACTIVE_LOADED,
+        payload: {
+            flatsNonactive
         }
     };
 };

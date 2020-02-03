@@ -27,7 +27,6 @@ class ReservationsOfFlat extends React.Component {
 
     render() {
         const bookings = this.props.bookings;
-        //let nameOfFlat = this.props.nameOfFlat;
         let idFlat = this.state.idFlat;
         return (
             <div>

@@ -7,7 +7,8 @@ import {
 import MyProfile from "./MyProfile";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
-import ListOfOffers from "./ListOfRooms";
+import ListOfActiveRooms from "./ListOfActiveRooms";
+import ListOfNonActiveRooms from "./ListOfNonActiveRooms";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -43,7 +44,9 @@ class App extends Component {
 
                     <PrivateRoute exact component={AllReservations} path="/reservations/"/>
 
-                    <PrivateRoute exact component={ListOfOffers} path="/offers"/>
+                    <PrivateRoute exact component={ListOfActiveRooms} path="/offers"/>
+
+                    <PrivateRoute exact component={ListOfNonActiveRooms} path="/offers/nonactive"/>
 
                     <PrivateRouteWithMode component={RoomDetailPage} path="/offers/edit/:id" mode={'edit'}/>
 

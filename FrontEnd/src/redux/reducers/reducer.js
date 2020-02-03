@@ -6,11 +6,13 @@ import {
     FLAT_SAVED,
     FLAT_UPDATED,
     USER_DETAIL_LOADED,
-    BOOKINGS_LOADED
+    BOOKINGS_LOADED,
+    FLATS_NONACTIVE_LOADED
 } from '../constants/appConstaints';
 
 export const initialState = {
     flats: undefined,
+    flatsNonactive: undefined,
     flatDetail:  {
         name_of_room: undefined,
         description: undefined,
@@ -38,6 +40,10 @@ const reducer = (state = initialState, action) => {
         case FLATS_LOADED: {
             const { flats } = action.payload;
             return { ...state, flats: flats};
+        }
+        case FLATS_NONACTIVE_LOADED: {
+            const { flatsNonactive } = action.payload;
+            return { ...state, flatsNonactive: flatsNonactive};
         }
         case FLAT_DETAIL: {
             const { flatDetail } = action.payload;

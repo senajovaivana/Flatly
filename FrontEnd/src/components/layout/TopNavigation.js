@@ -41,33 +41,44 @@ class TopNavigation extends Component {
                             {idUser &&
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    <NavLink className='top-nav-link' href="/home"> Home &nbsp; | &nbsp;</NavLink>
+                                    <NavLink className='top-nav-link' href="/home"> Home &nbsp; | </NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink className='top-nav-link' href="/offers"> My
-                                        offers &nbsp; | &nbsp;</NavLink>
-                                </NavItem>
+                                <UncontrolledDropdown nav inNavbar  >
+                                    <DropdownToggle nav caret className='top-nav-link'>
+                                        My offers &nbsp;
+                                    </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem className='user-nav-link'>
+                                            <NavLink className='top-nav-link' href="/offers"> Active offers</NavLink>
+                                        </DropdownItem>
+                                        <DropdownItem divider/>
+                                        <DropdownItem className='user-nav-link'>
+                                            <NavLink className='top-nav-link' href="/offers/nonactive"> Nonactive offers </NavLink>
+                                        </DropdownItem>
+                                        <DropdownItem divider/>
+                                        <DropdownItem className='user-nav-link'>
+                                            <NavLink className='top-nav-link' href="/offers/create"> Add new offer </NavLink>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
                                 <NavItem>
                                     <NavLink className='top-nav-link'
-                                             href="/reservations"> Reservations &nbsp; | &nbsp;</NavLink>
+                                             href="/reservations"> | &nbsp; Reservations &nbsp; | &nbsp;</NavLink>
                                 </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
                                     </DropdownToggle>
                                     <DropdownMenu right>
-                                        <DropdownItem>
+                                        <DropdownItem className='user-nav-link'>
                                             <NavLink className='top-nav-link' href="/profile"> My profile</NavLink>
                                         </DropdownItem>
                                         <DropdownItem divider/>
-                                        <DropdownItem>
+                                        <DropdownItem className='user-nav-link'>
                                             <NavLink className='top-nav-link'
                                                      onClick={this.handleLogOut}> Logout </NavLink>
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
-                                <NavItem>
-
-                                </NavItem>
                             </Nav>
                             }
                         </Collapse>

@@ -20,6 +20,11 @@ body a:hover {
     color: 	black !important;
 }
 
+.user-nav-link:active, .user-nav-link:focus {
+    color: #5cb85c;
+    background-color: #5cb85c;
+}
+
 .top-navigation-container {
     font-size: 17px;
     padding-top: 5px;
