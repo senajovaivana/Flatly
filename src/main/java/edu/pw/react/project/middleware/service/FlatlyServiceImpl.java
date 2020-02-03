@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+
 @Service
 public class FlatlyServiceImpl implements FlatlyService {
 
@@ -40,5 +43,18 @@ public class FlatlyServiceImpl implements FlatlyService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public boolean isFlatBookable(Long flatId, Date start, Date end) {
+        if (repository.existsById(flatId)) {
+            FlatEntity flat = repository.findById(flatId).get();
+            if ('T' == flat.getActive() &&
+                    flat.getStart_date().before(start) &&
+                    (null == flat.getEnd_date() || flat.getEnd_date().after(end))) {
+                return true;
+            }
+        }
+        return false;
     }
 }

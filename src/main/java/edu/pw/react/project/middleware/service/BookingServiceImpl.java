@@ -14,13 +14,15 @@ public class BookingServiceImpl implements BookingService {
 
     private final Logger logger = (Logger) LoggerFactory.getLogger(BookingServiceImpl.class);
     private BookingRepository repository;
+    private FlatlyService flatlyService;
 
     BookingServiceImpl() {
     }
 
     @Autowired
-    BookingServiceImpl(BookingRepository repository) {
-        this.repository = repository;
+    BookingServiceImpl(BookingRepository bookingRepository, FlatlyService flatlyService) {
+        this.repository = bookingRepository;
+        this.flatlyService = flatlyService;
     }
 
     @Override
@@ -46,15 +48,30 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingEntity checkavaibility(BookingEntity savedbooking) {
-        BookingEntity processedbooking = repository.save(savedbooking);
-        long result = repository.checkavaibility(processedbooking.getItem_id(), processedbooking.getActive(), processedbooking.getStart_date(), processedbooking.getEnd_date());
-        if (result > 1) {
-            processedbooking.setActive('F');
-            return repository.save(processedbooking);
-        } else {
-            return processedbooking;
+    public BookingEntity checkavaibility(BookingEntity bookingToSave) {
+        if (!flatlyService.isFlatBookable(bookingToSave.getItem_id(), bookingToSave.getStart_date(), bookingToSave.getEnd_date())) {
+            bookingToSave.setActive('F');
+            return bookingToSave;
         }
+        BookingEntity saved = repository.save(bookingToSave);
+        long result = repository.checkavaibility(saved.getItem_id(), saved.getActive(), saved.getStart_date(), saved.getEnd_date());
+        if (result > 1) {
+            saved.setActive('F');
+            return repository.save(saved);
+        } else {
+            return saved;
+        }
+    }
+
+    @Override
+    public boolean checkIncommingBookingForCreate(BookingEntity booking) {
+        if (null != booking.getId() || //this is create, id needs to be null
+                null == booking.getStart_date() || //its in validation, rechecking
+                (null != booking.getEnd_date() && booking.getStart_date().after(booking.getEnd_date()))
+        ) {
+            return false;
+        }
+        return true;
     }
 
 }

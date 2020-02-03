@@ -72,9 +72,8 @@ public class BookingController {
     @PostMapping(path = "")
     @Transactional
     public ResponseEntity<BookingEntity> createBooking(@RequestHeader HttpHeaders headers, @Valid @RequestBody BookingEntity booking) {
-        //IS FLAT in rentable - TODO check table flat
         logHeaders(headers);
-        if (null != booking.getId()) {
+        if (!bookingService.checkIncommingBookingForCreate(booking)){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(booking);
         }
         if (securityService.isAuthorized(headers)) {
@@ -82,7 +81,13 @@ public class BookingController {
             if ('T' == booking.getActive()) {
                 return ResponseEntity.status(HttpStatus.CREATED).body(booking);
             } else {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(booking);
+                if (null == booking.getId()) {
+                    //flat not avaible
+                    return ResponseEntity.status(HttpStatus.GONE).body(booking);
+                } else {
+                    //conflict with other booking
+                    return ResponseEntity.status(HttpStatus.CONFLICT).body(booking);
+                }
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(booking);
