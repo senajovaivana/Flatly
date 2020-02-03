@@ -78,11 +78,11 @@ public class BookingServiceImpl implements BookingService {
     public boolean checkForDeletionAndDelete(Long id, BookingEntity booking) {
         if (null != id && id.equals(booking.getId()) && repository.existsById(id)) {
             BookingEntity fromDB = repository.findById(id).get();
-            if (fromDB.equals(booking)) {
+            //if (fromDB.equals(booking)) {  //FIXME - problem with time zone and date
                 fromDB.setActive('F');
                 repository.save(fromDB);
                 return true;
-            }
+            //}
         }
         return false;
     }
