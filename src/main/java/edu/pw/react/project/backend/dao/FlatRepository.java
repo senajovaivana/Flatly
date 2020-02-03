@@ -17,8 +17,11 @@ public interface FlatRepository extends JpaRepository<FlatEntity, Long>, JpaSpec
     @Query("update FlatEntity u set u.active = 'F' where u.id = :id")
     int updateFlatToNonActive(@Param("id") Long id) ;
 
-    @Query("select u from FlatEntity u where u.owner_of_room = :idUser order by u.name_of_room")
-    Collection<FlatEntity> findAllFlats(Long idUser);
+    @Query("select u from FlatEntity u where u.owner_of_room = :idUser and u.active='T' order by u.name_of_room")
+    Collection<FlatEntity> findAllActiveFlats(Long idUser);
+
+    @Query("select u from FlatEntity u where u.owner_of_room = :idUser and u.active='F' order by u.name_of_room")
+    Collection<FlatEntity> findAllNonactiveFlats(Long idUser);
 
     @Query("select u.room_bookings from FlatEntity u where u.owner_of_room = :idUser")
     Collection<BookingEntity> findAllReservations(Long idUser);

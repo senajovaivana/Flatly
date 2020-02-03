@@ -28,9 +28,16 @@ public class FlatController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "")
-    public ResponseEntity<Collection<FlatEntity>> getAllFlats(@RequestParam Long id) {//FIXME
-        System.out.println("Getting All flats");
-        return ResponseEntity.ok(flatRepository.findAllFlats(id));
+    public ResponseEntity<Collection<FlatEntity>> getAllActiveFlats(@RequestParam Long id) {//FIXME
+        System.out.println("Getting all active flats");
+        return ResponseEntity.ok(flatRepository.findAllActiveFlats(id));
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/nonactive")
+    public ResponseEntity<Collection<FlatEntity>> getAllNonActiveFlats(@RequestParam Long id) {
+        System.out.println("Getting all nonactive flats");
+        return ResponseEntity.ok(flatRepository.findAllNonactiveFlats(id));
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -42,7 +49,7 @@ public class FlatController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(value = "delete/{id}")
+    @PostMapping(value = "/delete/{id}")
     public ResponseEntity<String> setRoomNonactive(@PathVariable Long id) throws ResourceNotFoundException {
         if (!flatRepository.existsById(id))
             return new ResponseEntity<>("Flat with id " + id + " does not exist", HttpStatus.NOT_FOUND);

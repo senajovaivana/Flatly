@@ -14,16 +14,15 @@ class LoginPage extends Component {
         this.state = {
             login: "",
             password: "",
-            loginfailed: false,
-            error: false
+            loginFailed: false
         };
         this.handleChangeLogin = this.handleChangeLogin.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.formvalid = this.formvalid.bind(this);
+        this.isFormValid = this.isFormValid.bind(this);
         this.logIn = this.logIn.bind(this);
     }
 
-    formvalid() {
+    isFormValid() {
         return this.state.login.length > 0 && this.state.password.length > 0
     }
 
@@ -32,34 +31,32 @@ class LoginPage extends Component {
             <div className='login-page'>
                 <div>
                     <Container className="main-layout-page-wrapper themed-container">
-                        <Row>
-                            <Col className="content" sm="12" md={{size: 6, offset: 3}}>
-                                <form className='form' onSubmit={this.logIn}>
-                                    {this.state.loginfailed &&
-                                    <Alert variant="danger" show="true">
-                                        Incorrect Username or Password!! try again
-                                    </Alert>}
-                                    <FormGroup>
-                                        <h2 className='nameOfPage'>
-                                            Sign in
-                                        </h2>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label>Login
-                                            <Input type="text" value={this.state.login}
-                                                   onChange={this.handleChangeLogin}/>
-                                        </Label>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Label>Password
-                                            <Input type="password" value={this.state.password}
-                                                   onChange={this.handleChangePassword}/>
-                                        </Label>
-                                    </FormGroup>
-                                    <Button color="success" size="lg" disabled={!this.formvalid()}> Submit </Button>
-                                </form>
-                            </Col>
-                        </Row>
+                        <Col className="content" sm="12" md={{size: 6, offset: 3}}>
+                            <form className='form' onSubmit={this.logIn}>
+                                <FormGroup>
+                                    <h2 className='nameOfPage'> Sign in </h2>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Email
+                                        <Input type="text" value={this.state.login} onChange={this.handleChangeLogin}/>
+                                    </Label>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label>Password
+                                        <Input type="password" value={this.state.password}
+                                               onChange={this.handleChangePassword}/>
+                                    </Label>
+                                </FormGroup>
+                                <FormGroup>
+                                    <Button color="success" size="lg" block disabled={!this.isFormValid()}> Submit </Button>
+                                </FormGroup>
+
+                                {this.state.loginFailed &&
+                                <Alert color="danger">
+                                    Incorrect username or password! Try again.
+                                </Alert>}
+                            </form>
+                        </Col>
                     </Container>
                 </div>
             </div>
@@ -85,12 +82,10 @@ class LoginPage extends Component {
                 if (res === false) {
                     return alert("Sorry those credentials don't exist!");
                 }
-                console.log(res.password)
                 this.props.history.push("/home");
             })
             .catch(() => {
-                this.setState({error: false})
-                this.setState({loginfailed: true})
+                this.setState({loginFailed: true})
             });
 
 
