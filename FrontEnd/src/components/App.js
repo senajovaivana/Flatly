@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import "../css/App.css";
-import{
+import {
     BrowserRouter as Router,
-    Switch,
-    Route
+    Switch
 } from "react-router-dom";
-import Layout from "./layout/Layout";
 import MyProfile from "./MyProfile";
-import ListOfReservations from "./ListOfReservations";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import ListOfOffers from "./ListOfRooms";
@@ -15,7 +12,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from '../redux/reducers/reducer'
-import PublicRoute from "./PublicRoute";
+import { PublicRoute, PrivateRoute, PrivateRouteWithMode } from "./CustomRoutes";
 import RoomDetailPage from "./RoomDetailPage";
 import ReservationsOfFlat from "./ReservationsOfFlat";
 import AllReservations from "./AllReservations";
@@ -32,75 +29,26 @@ class App extends Component {
     }
 
     render() {
-        let reservations = [
-            {
-                "name_of_offer": 'Bed and Breakfast',
-                "id_booking": 1,
-                "start_date": '2019-10-02',
-                "end_date": '2019-10-04',
-                "name_of_quests": 'Anna'
-            },
-            {
-                "name_of_offer": 'Nice apartment in Warsaw',
-                "id_booking": 2,
-                "start_date": '2019-10-14',
-                "end_date": '2019-10-17',
-                "name_of_quests": 'Peter'
-            },
-            {
-                "name_of_offer": 'Junckers Hotel',
-                "id_booking": 3,
-                "start_date": '2019-11-01',
-                "end_date": '2019-11-02',
-                "name_of_quests": 'Jozef'
-            },
-            {
-                "name_of_offer": 'Amsterdam Downtown Hotel',
-                "id_booking": 4,
-                "start_date": '2019-12-04',
-                "end_date": '2019-12-09',
-                "name_of_quests": 'Paul'
-            }
-        ];
         return (
             <Provider store={store}>
             <Router>
                 <Switch>
-                    <Route  exact path="/">
+                    <PublicRoute exact path="/">
                         <LoginPage/>
-                    </Route>
-                    <Route exact path="/home">
-                        <Layout>
-                            <HomePage/>
-                        </Layout>
-                    </Route>
-                    <Route exact path="/profile">
-                        <Layout>
-                            <MyProfile/>
-                        </Layout>
-                    </Route>
-                    <Route exact path="/reservations/flat/:id">
-                        <Layout>
-                            <ReservationsOfFlat nameOfFlat={"fdf"}/>
-                        </Layout>
-                    </Route>
+                    </PublicRoute>
+                    <PrivateRoute exact component={HomePage} path="/home"/>
 
-                    <Route exact path="/reservations/">
-                        <Layout>
-                            <AllReservations/>
-                        </Layout>
-                    </Route>
-                    <Route exact path="/offers">
-                        <Layout>
-                            <ListOfOffers/>
-                        </Layout>
-                    </Route>
+                    <PrivateRoute exact component={MyProfile} path="/profile"/>
 
-                    <PublicRoute component={RoomDetailPage}
-                                 path="/offers/edit/:id" mode={'edit'}/>
+                    <PrivateRoute exact component={ReservationsOfFlat} path="/reservations/flat/:id"/>
 
-                    <PublicRoute component={RoomDetailPage}
-                                 path="/offers/create" mode={'create'}/>
+                    <PrivateRoute exact component={AllReservations} path="/reservations/"/>
+
+                    <PrivateRoute exact component={ListOfOffers} path="/offers"/>
+
+                    <PrivateRouteWithMode component={RoomDetailPage} path="/offers/edit/:id" mode={'edit'}/>
+
+                    <PrivateRouteWithMode component={RoomDetailPage} path="/offers/create" mode={'create'}/>
 
                 </Switch>
             </Router>

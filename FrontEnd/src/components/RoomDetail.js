@@ -174,10 +174,7 @@ class RoomDetail extends Component {
                 chosenMethods.push(result)
             }
         }
-        this.setState({
-            flatDetail:
-                {...this.state.flatDetail, payment_methods: chosenMethods}
-        }, () => console.log(this.state.selectedFile));
+        this.setState({flatDetail: {...this.state.flatDetail, payment_methods: chosenMethods}});
      }
 
 
