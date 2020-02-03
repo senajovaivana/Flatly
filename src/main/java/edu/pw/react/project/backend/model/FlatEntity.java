@@ -19,7 +19,6 @@ public class FlatEntity {
     public static FlatEntity EMPTY = new FlatEntity();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "room_id", updatable = false, nullable = false)
     private Long id;
 
