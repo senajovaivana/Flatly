@@ -3,9 +3,11 @@ package edu.pw.react.project.restapi.controller;
 import edu.pw.react.project.backend.dao.BookingRepository;
 import edu.pw.react.project.backend.dao.FlatRepository;
 import edu.pw.react.project.backend.model.BookingEntity;
-import edu.pw.react.project.backend.model.FlatEntity;
 import edu.pw.react.project.middleware.service.BookingService;
+import edu.pw.react.project.middleware.service.SecurityService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,18 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 
+import static java.util.stream.Collectors.joining;
+
 @RestController
 @RequestMapping(path = "/bookings")
 public class BookingController {
+
+   private final org.slf4j.Logger logger = LoggerFactory.getLogger(BookingController.class);
+
+    private void logHeaders(@RequestHeader HttpHeaders headers) {
+        logger.info("Controller request headers {}",
+                headers.entrySet()
+                        .stream()
+                        .map(entry -> String.format("%s->[%s]", entry.getKey(), String.join(",", entry.getValue())))
+                        .collect(joining(","))
+        );
+    }
+
     private BookingRepository bookingRepository;
     private FlatRepository flatRepository;
-
+    private SecurityService securityService;
     private BookingService bookingService;
 
     @Autowired
-    public BookingController(BookingRepository bookingRepository, FlatRepository flatRepository, BookingService bookingService) {
+    public BookingController(BookingRepository bookingRepository, FlatRepository flatRepository, BookingService bookingService, SecurityService securityService ) {
         this.bookingRepository = bookingRepository;
         this.flatRepository = flatRepository;
+        this.securityService = securityService;
         this.bookingService = bookingService;
     }
 
@@ -54,12 +71,20 @@ public class BookingController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "")
     @Transactional
-    public ResponseEntity<BookingEntity> createBooking(@Valid @RequestBody BookingEntity booking) {
-        System.out.println("Creating booking");
-        //check if can be reserved
-        //FIXME
-        bookingRepository.save(booking);
-
-        return new ResponseEntity<>(bookingRepository.save(booking), HttpStatus.OK);
+    public ResponseEntity<BookingEntity> createBooking(@RequestHeader HttpHeaders headers, @Valid @RequestBody BookingEntity booking) {
+        //IS FLAT in rentable - TODO check table flat
+        logHeaders(headers);
+        if (null != booking.getId()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(booking);
+        }
+        if (securityService.isAuthorized(headers)) {
+            booking = bookingService.checkavaibility(booking);
+            if ('T' == booking.getActive()) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(booking);
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(booking);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(booking);
     }
 }
