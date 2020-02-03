@@ -2,15 +2,19 @@ package edu.pw.react.project.restapi.controller;
 
 import edu.pw.react.project.backend.dao.FlatRepository;
 import edu.pw.react.project.backend.model.FlatEntity;
+import edu.pw.react.project.backend.model.ImageEntity;
+import edu.pw.react.project.backend.model.PaymentMethodsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/flats")
@@ -24,7 +28,7 @@ public class FlatController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "")
-    public ResponseEntity<Collection<FlatEntity>> getAllFlats(@RequestParam Long id) {
+    public ResponseEntity<Collection<FlatEntity>> getAllFlats(@RequestParam Long id) {//FIXME
         System.out.println("Getting All flats");
         return ResponseEntity.ok(flatRepository.findAllFlats(id));
     }
@@ -48,9 +52,16 @@ public class FlatController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(value = "")
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<FlatEntity> createFlat(@Valid @RequestBody FlatEntity flat) {
+        Set<PaymentMethodsEntity> tmpPayments = flat.getPayment_methods();
+        flat.setPayment_methods(null);
+        ImageEntity tmpImage = flat.getRoom_image();
+        flat.setRoom_image(null);
+        flat = flatRepository.save(flat);
+        flat.setPayment_methods(tmpPayments);
+        flat.setRoom_image(tmpImage);
         return new ResponseEntity<>(flatRepository.save(flat), HttpStatus.OK);
     }
 

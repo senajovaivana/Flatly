@@ -1,0 +1,15 @@
+package edu.pw.react.project.utils;
+
+public class TestConstants {
+    public static final String PATH = "src/test/resources/";
+
+    public static final String DESCRIPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris volutpat interdum eros at posuere. Proin ac neque tortor. Curabitur velit ante, blandit in justo vel, pulvinar fermentum lectus. Curabitur bibendum mi arcu, in sodales arcu pretium in. Donec ac dapibus lacus. Nunc sodales porttitor elit, eu luctus magna vestibulum venenatis. Vestibulum vulputate rutrum volutpat. Nullam feugiat ligula tellus, a accumsan justo mollis sed. Vivamus venenatis dictum felis, nec interdum mi convallis vulputate. Vivamus luctus feugiat ipsum, in congue enim mollis et. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce rhoncus porttitor eleifend.\n" +
+            "\n" +
+            "Nunc sit amet sapien orci. Duis aliquet nibh tincidunt urna lobortis varius. Curabitur pretium porta neque, convallis suscipit odio maximus at. In purus elit, porta at enim vel, mattis bibendum risus. Phasellus aliquam odio posuere malesuada bibendum. Mauris iaculis pharetra libero vitae ultrices. Curabitur diam dui, porttitor et pellentesque sed, suscipit vel lectus.\n" +
+            "\n" +
+            "Duis ut metus nisl. Quisque vulputate nulla sed sodales dignissim. Donec in feugiat lorem, a rhoncus odio. Donec et purus felis. Aenean justo ligula, interdum a vestibulum vitae, tincidunt sed odio. Aenean ante arcu, elementum non dui a, fermentum faucibus purus. Pellentesque vestibulum lobortis nunc eget dictum.\n" +
+            "\n" +
+            "Cras nec felis ante. Integer suscipit vehicula posuere. Morbi sit amet arcu maximus, sollicitudin nibh id, faucibus lectus. Proin pretium ullamcorper est, ut sollicitudin est hendrerit id. Cras eu porttitor sapien, porta dictum nibh. Duis finibus orci id nibh dictum, in tempus purus imperdiet. Nunc in iaculis augue. Donec pellentesque ligula sapien, vitae porta felis congue et. In vel turpis quam. Aenean ac dignissim ipsum. Fusce mi nibh, blandit quis varius sit amet, posuere sed nibh. In pellentesque et ipsum gravida pulvinar. Phasellus ac sapien et elit pellentesque aliquam in at metus. Sed dignissim leo pretium odio blandit vehicula. Nunc eget vestibulum mi. In laoreet rhoncus neque, quis dapibus ligula ultrices id.\n" +
+            "\n" +
+            "Suspendisse maximus risus eu velit cursus tempor. Quisque vel ultricies est. Donec accumsan magna eget ipsum vulputate, non finibus odio consequat. Nulla maximus luctus nulla, eget gravida mauris fringilla ac. Curabitur bibendum venenatis elit, quis vulputate nulla cursus egestas. Phasellus euismod tincidunt imperdiet. Aliquam ut purus vel metus hendrerit consectetur. Etiam mollis est non blandit pretium. Vivamus tincidunt molestie lacus et condimentum. Morbi lacinia magna sed accumsan ullamcorper. Donec vel ipsum sit amet sapien fringilla facilisis et in dui. Donec efficitur felis eget egestas sodales. ";
+}
