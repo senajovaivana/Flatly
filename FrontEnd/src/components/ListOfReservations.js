@@ -34,6 +34,13 @@ const ListOfReservations  = ({
         );
 
     }
+
+    function flatDetailFormatter(cell, row) {
+        return (
+            <a href={`/offers/edit/${cell}`}>{cell}</a>
+        );
+    }
+
     function dateFormatter(cell, row) {
         return (
             <p>{moment(cell).format('DD-MM-YYYY')}</p>
@@ -44,6 +51,7 @@ const ListOfReservations  = ({
         text: 'Flat',
         headerStyle: headerStyle,
         filter: textFilter(),
+        formatter: flatDetailFormatter
     }, {
         dataField: 'start_date',
         text: 'Date of arrival',
