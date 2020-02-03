@@ -3,8 +3,7 @@ import {
     FLAT_DETAIL,
     FLAT_DELETED,
     FLAT_SAVED,
-    FLAT_UPDATED,
-    IMAGE_LOADED
+    FLAT_UPDATED
 } from '../constants/appConstaints';
 
 export const flatsLoaded = (flats) => {

@@ -33,9 +33,8 @@ class App extends Component {
             <Provider store={store}>
             <Router>
                 <Switch>
-                    <PublicRoute exact path="/">
-                        <LoginPage/>
-                    </PublicRoute>
+                    <PublicRoute exact component={LoginPage} path="/"/>
+
                     <PrivateRoute exact component={HomePage} path="/home"/>
 
                     <PrivateRoute exact component={MyProfile} path="/profile"/>

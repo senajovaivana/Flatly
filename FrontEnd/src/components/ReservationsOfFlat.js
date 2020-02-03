@@ -31,9 +31,7 @@ class ReservationsOfFlat extends React.Component {
         let idFlat = this.state.idFlat;
         return (
             <div>
-                {bookings && <ListOfReservations reservations={bookings}
-                                                 forCurrentFlat={1}
-                                                 nameOfFlat={idFlat}/>}
+                {bookings && <ListOfReservations reservations={bookings} forCurrentFlat={1} nameOfFlat={idFlat}/>}
             </div>
         );
     }

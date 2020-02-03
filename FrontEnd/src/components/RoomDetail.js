@@ -177,7 +177,6 @@ class RoomDetail extends Component {
         this.setState({flatDetail: {...this.state.flatDetail, payment_methods: chosenMethods}});
      }
 
-
     componentDidMount() {
         //fetch roomdetail if edit
         if (this.props.mode === "edit") {

@@ -20,7 +20,6 @@ class LoginPage extends Component {
         this.handleChangeLogin = this.handleChangeLogin.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.formvalid = this.formvalid.bind(this);
-        // this.SubmitButton=this.SubmitButton.bind(this);
         this.logIn = this.logIn.bind(this);
     }
 

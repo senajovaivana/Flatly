@@ -1,5 +1,4 @@
 import React from 'react';
-import {Table} from 'reactstrap';
 import '../css/ListOfReservations.css'
 import '../css/Login.css'
 import * as moment from 'moment';
@@ -23,7 +22,7 @@ const ListOfReservations  = ({
         'F': 'Yes'
     };
 
-    function activeFormatter(cell, row) {
+    function activeFormatter(cell) {
         if (cell === "F") {
             return (
                 <p className="message">Yes</p>
@@ -35,13 +34,13 @@ const ListOfReservations  = ({
 
     }
 
-    function flatDetailFormatter(cell, row) {
+    function flatDetailFormatter(cell) {
         return (
             <a href={`/offers/edit/${cell}`}>{cell}</a>
         );
     }
 
-    function dateFormatter(cell, row) {
+    function dateFormatter(cell) {
         return (
             <p>{moment(cell).format('DD-MM-YYYY')}</p>
         );

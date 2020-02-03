@@ -27,25 +27,29 @@ class TopNavigation extends Component {
     }
 
     render() {
+        let idUser = localStorage.getItem("id_user");
         return(
             <Container fluid={true} className="top-navigation-container">
                 <div className='nav-bar'>
                     <Navbar light expand="md">
-                        <NavbarBrand href="/home">
+                        <NavbarBrand href="">
                             <FontAwesomeIcon className='icon-home' icon={faHome} /> &nbsp;
                             Flatly
                         </NavbarBrand>
                         <NavbarToggler />
                         <Collapse navbar>
+                            {idUser &&
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
                                     <NavLink className='top-nav-link' href="/home"> Home &nbsp; | &nbsp;</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink className='top-nav-link' href="/offers"> My offers &nbsp; | &nbsp;</NavLink>
+                                    <NavLink className='top-nav-link' href="/offers"> My
+                                        offers &nbsp; | &nbsp;</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink className='top-nav-link' href="/reservations"> Reservations &nbsp; | &nbsp;</NavLink>
+                                    <NavLink className='top-nav-link'
+                                             href="/reservations"> Reservations &nbsp; | &nbsp;</NavLink>
                                 </NavItem>
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
@@ -54,9 +58,10 @@ class TopNavigation extends Component {
                                         <DropdownItem>
                                             <NavLink className='top-nav-link' href="/profile"> My profile</NavLink>
                                         </DropdownItem>
-                                        <DropdownItem divider />
+                                        <DropdownItem divider/>
                                         <DropdownItem>
-                                            <NavLink className='top-nav-link' onClick={this.handleLogOut}> Logout </NavLink>
+                                            <NavLink className='top-nav-link'
+                                                     onClick={this.handleLogOut}> Logout </NavLink>
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
@@ -64,6 +69,7 @@ class TopNavigation extends Component {
 
                                 </NavItem>
                             </Nav>
+                            }
                         </Collapse>
                     </Navbar>
                 </div>

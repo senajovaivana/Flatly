@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Layout from "./layout/Layout";
 import RoomDetail from "./RoomDetail";
 
 class RoomDetailPage extends Component {

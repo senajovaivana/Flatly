@@ -5,7 +5,8 @@ import {
     FLAT_DELETED,
     FLAT_SAVED,
     FLAT_UPDATED,
-    USER_DETAIL_LOADED, IMAGE_LOADED, BOOKINGS_LOADED
+    USER_DETAIL_LOADED,
+    BOOKINGS_LOADED
 } from '../constants/appConstaints';
 
 export const initialState = {

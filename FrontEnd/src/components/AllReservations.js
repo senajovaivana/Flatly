@@ -8,10 +8,6 @@ import {bookingsLoaded} from "../redux/actions/bookingsActions";
 import {idUser} from "./AuthHelperMethods"
 
 class AllReservations extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         fetch(`http://localhost:8080/bookings?id=${idUser}`)
             .then((data) => data.json())
