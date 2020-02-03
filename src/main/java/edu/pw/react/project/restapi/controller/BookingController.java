@@ -92,4 +92,19 @@ public class BookingController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(booking);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping(value = "/{id}")
+    //@Transactional
+    public ResponseEntity<BookingEntity> setBookingNonactive(@PathVariable Long id, @RequestHeader HttpHeaders headers, @Valid @RequestBody BookingEntity booking) {
+        logHeaders(headers);
+        if (securityService.isAuthorized(headers)) {
+            if (bookingService.checkForDeletionAndDelete(id, booking)){
+                return ResponseEntity.status(HttpStatus.OK).body(booking);
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(booking);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(booking);
+    }
+
 }

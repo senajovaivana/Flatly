@@ -10,4 +10,6 @@ public interface BookingService {
     BookingEntity checkavaibility(BookingEntity savedbooking);
 
     boolean checkIncommingBookingForCreate(BookingEntity booking);
+
+    boolean checkForDeletionAndDelete(Long id, BookingEntity booking);
 }

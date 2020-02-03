@@ -74,4 +74,17 @@ public class BookingServiceImpl implements BookingService {
         return true;
     }
 
+    @Override
+    public boolean checkForDeletionAndDelete(Long id, BookingEntity booking) {
+        if (null != id && id.equals(booking.getId()) && repository.existsById(id)) {
+            BookingEntity fromDB = repository.findById(id).get();
+            if (fromDB.equals(booking)) {
+                fromDB.setActive('F');
+                repository.save(fromDB);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
