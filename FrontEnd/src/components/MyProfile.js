@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {userDetailLoaded} from "../redux/actions/usersActions";
 
+import {idUser} from "./AuthHelperMethods"
+
 class MyProfile extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +28,11 @@ class MyProfile extends Component {
     }
 
     componentDidMount() {
-        //TODO: resolve real id of actual user
-        const id = 1;
-        fetch(`http://localhost:8080/users/${id}`)
+        const passwordHash = require('password-hash');
+        const hashedPassword = passwordHash.generate('password123');
+        console.log(hashedPassword);
+
+        fetch(`http://localhost:8080/users/${idUser}`)
             .then((data) => data.json())
             .then((users) => {
                 this.props.userDetailLoaded(users);
@@ -85,10 +89,8 @@ class MyProfile extends Component {
     }
 
     changeUserInfo() {
-        //TODO get real id of logged user
-        console.log(this.state.userDetail)
-        let id = 1;
-        fetch(`http://localhost:8080/users/${id}`, {
+        console.log(this.state.userDetail);
+        fetch(`http://localhost:8080/users/${idUser}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -5,15 +5,15 @@ import {withRouter} from "react-router";
 import ListOfReservations from "./ListOfReservations";
 import {bookingsLoaded} from "../redux/actions/bookingsActions";
 
+import {idUser} from "./AuthHelperMethods"
+
 class AllReservations extends React.Component {
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-        //TODO change to id of logged user
-        let id = 1;
-        fetch(`http://localhost:8080/bookings?id=${id}`)
+        fetch(`http://localhost:8080/bookings?id=${idUser}`)
             .then((data) => data.json())
             .then((reservations) => {
                 console.log(reservations)

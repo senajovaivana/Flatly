@@ -4,6 +4,15 @@ import React, {Component} from 'react';
 import "../css/App.css";
 import decode from 'jwt-decode'
 
+export const idUser = localStorage.getItem("id_user");
+
+export const  logout = () => {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem("security_token");
+    localStorage.removeItem("id_user");
+    return localStorage.getItem("security_token")
+};
+
 class AuthHelperMethods extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +20,8 @@ class AuthHelperMethods extends Component {
 
     login = (login, password) => {
         // Get a token from api server using the fetch api
-        return this.fetch(`http://localhost:8081/users`, {
+
+        return this.fetch(`http://localhost:8080/users`, {
             method: "POST",
             headers: {
                 Accept: 'application/json',
@@ -20,10 +30,10 @@ class AuthHelperMethods extends Component {
             body: JSON.stringify({
                 login,
                 password
-
             })
         }).then(res => {
-            this.setToken(res.token); // Setting the token in localStorage
+            this.setToken(res.security_token); // Setting the token in localStorage
+            this.setIdUser(res.id);
             return Promise.resolve(res);
         });
     };
@@ -52,14 +62,14 @@ class AuthHelperMethods extends Component {
         localStorage.setItem("security_token", idToken);
     };
 
+    setIdUser = id => {
+        // Saves user id to localStorage
+        localStorage.setItem("id_user", id);
+    };
+
     getToken = () => {
         // Retrieves the user token from localStorage
         return localStorage.getItem("security_token");
-    };
-
-    logout = () => {
-        // Clear user token and profile data from localStorage
-        localStorage.removeItem("security_token");
     };
 
     getConfirm = () => {

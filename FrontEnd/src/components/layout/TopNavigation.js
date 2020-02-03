@@ -12,8 +12,19 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import {DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown} from "reactstrap/es";
+import {logout} from "../AuthHelperMethods"
+import {withRouter} from "react-router";
 
 class TopNavigation extends Component {
+    constructor(props) {
+        super(props);
+        this.handleLogOut = this.handleLogOut.bind(this);
+    }
+
+    handleLogOut() {
+        logout();
+        this.props.history.push("");
+    }
 
     render() {
         return(
@@ -45,7 +56,7 @@ class TopNavigation extends Component {
                                         </DropdownItem>
                                         <DropdownItem divider />
                                         <DropdownItem>
-                                            <NavLink className='top-nav-link' href="/"> Logout </NavLink>
+                                            <NavLink className='top-nav-link' onClick={this.handleLogOut}> Logout </NavLink>
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
@@ -61,4 +72,4 @@ class TopNavigation extends Component {
     }
 }
 
-export default TopNavigation;
+export default (withRouter(TopNavigation));

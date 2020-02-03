@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,12 +33,12 @@ public class UserController {
         if (u == null) {
             throw new ResourceNotFoundException(
                     "Creditials are not correct: " + userEntity.getId());
-        } else {
-            if (!u.getPassword().equals(userEntity.getPassword()))
-                throw new ResourceNotFoundException(
-                        "Creditials are not correct: " + userEntity.getId());
         }
-        return new ResponseEntity<>(u, HttpStatus.OK);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12
+        if (encoder.matches(userEntity.getPassword(), u.getPassword())) {
+            return new ResponseEntity<>(u, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(u, HttpStatus.NOT_FOUND);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")

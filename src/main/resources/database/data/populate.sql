@@ -18,25 +18,25 @@ INSERT INTO "developer" (login, active)
 VALUES ('Tiger', 'F');
 
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (1, 'user1@gmail.com','fgfdgfdgdfgdf', 'Martin', 'King');
+VALUES (1, 'user1@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Martin', 'King');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (2, 'user2@gmail.com','fgfdgfdgdfgdf', 'Bob', 'Liev');
+VALUES (2, 'user2@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Bob', 'Liev');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (3, 'user3@gmail.com','fgfdgfdgdfgdf', 'Karla', 'Huub');
+VALUES (3, 'user3@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Karla', 'Huub');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (4, 'user4@gmail.com','fgfdgfdgdfgdf', 'Anna', 'Korta');
+VALUES (4, 'user4@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Anna', 'Korta');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (5, 'user5@gmail.com','fgfdgfdgdfgdf', 'Paul', 'Porta');
+VALUES (5, 'user5@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Paul', 'Porta');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (6, 'user6@gmail.com','fgfdgfdgdfgdf', 'Jean', 'King');
+VALUES (6, 'user6@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Jean', 'King');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (7, 'user7@gmail.com','fgfdgfdgdfgdf', 'Lucas', 'Erl');
+VALUES (7, 'user7@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Lucas', 'Erl');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (8, 'user8@gmail.com','fgfdgfdgdfgdf', 'Hubert', 'Folsk');
+VALUES (8, 'user8@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Hubert', 'Folsk');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (9, 'user9@gmail.com','fgfdgfdgdfgdf', 'Christina', 'Giraman');
+VALUES (9, 'user9@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Christina', 'Giraman');
 INSERT INTO "users" (users_id, login,password,first_name,last_name)
-VALUES (10, 'user10@gmail.com','fgfdgfdgdfgdf', 'Mary', 'Hungbert');
+VALUES (10, 'user10@gmail.com','$2a$12$lvrXh2wUJnGTn6521Eemcu30/TXOeJyeWctV2KTPl27yVpgOV2pCi', 'Mary', 'Hungbert');
 
 INSERT INTO "payment_method" (payment_method_id,name_of_method)
 VALUES (1,'cash');

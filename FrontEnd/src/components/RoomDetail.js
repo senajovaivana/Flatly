@@ -14,14 +14,15 @@ import {UNLOAD_FLAT_DETAIL} from "../redux/constants/appConstaints";
 import * as moment from 'moment'
 import logo from "../flat.jpg";
 
+import {idUser} from "./AuthHelperMethods"
+
 class RoomDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
             flatDetail: {
                 name_of_room: undefined,
-                //TODO - get id of logged user and set it here
-                owner_of_room: 1,
+                owner_of_room: idUser,
                 description: undefined,
                 start_date: moment().format('YYYY-MM-DD'),
                 price: undefined,
@@ -155,12 +156,12 @@ class RoomDetail extends Component {
     }
 
     onChangeImage(e) {
-        // e.preventDefault();
-        // console.log(e.target.files)
-        // this.setState({
-        //         selectedFile: e.target.files
-        //     }, () => console.log(this.state.selectedFile)
-        // )
+        e.preventDefault();
+        if (e.target.files)  {
+            const file = e.target.files[0];
+            console.log(file);
+            this.setState({ selectedFile: file.content }, () => console.log(this.state.selectedFile))
+        }
     }
 
     onChangePaymentMethod(e) {
@@ -197,7 +198,7 @@ class RoomDetail extends Component {
             .then((data) => data.json())
             .then((methods) => {
                 this.setState({all_payment_methods: methods}, () => {
-                    console.log(this.state.all_payment_methods)})
+                    console.log(this.state)})
             });
     }
 
@@ -207,6 +208,7 @@ class RoomDetail extends Component {
 
     renderImage() {
         let room_image = this.state.flatDetail.room_image;
+        console.log(room_image)
         if (room_image !== undefined) {
             if (room_image !== null) {
                 if (room_image.content !== "") {
@@ -366,12 +368,12 @@ class RoomDetail extends Component {
                     </Col>
                     }
                     <Col>
-                        {!this.validate() && <div className="message">You must fill all fields.</div>}
+                        {/*{!this.validate() && <div className="message">You must fill all fields.</div>}*/}
                     </Col>
                     <Col className='btns'>
                         <FormGroup>
                             <ButtonGroup>
-                                <Button className='btn-green-hover' disabled={!this.validate()}
+                                <Button className='btn-green-hover'
                                         onClick={() => this.onClickSave(this.props.mode)}> Save </Button>
                                 <Button href='/offers' className='btn-green-hover'> Cancel </Button>
                             </ButtonGroup>
@@ -383,85 +385,56 @@ class RoomDetail extends Component {
     }
 
     onClickSave(mode) {
-        if (this.validate()) {
-            const idFlat = (mode === "create") ? Date.now() : this.state.flatDetail.id;
-            //add images to database
-           // let image = this.state.selectedFile[0];
-            //console.log(image)
-            let errorImagesInserted = false;
-            //let imageFile = null;
-            // if (image) {
-            //     console.log("tu")
-            //     let reader = new FileReader();
-            //     reader.onload = function (r) {
-            //         this.setState({
-            //             room_image: r.target.result
-            //         });
-            //         reader.readAsDataURL(image);
-            //         imageFile = {id: Date.now(), content: reader.result, room_id: idFlat};
-            //         console.log(imageFile)
-            //         console.log(reader)
-            //
-            //         fetch("http://localhost:8080/images", {
-            //             method: "POST",
-            //             headers: {
-            //                 "Content-Type": "application/json",
-            //                 Accept: "application/json"
-            //             },
-            //             body: JSON.stringify(imageFile)
-            //         }).then(r => {
-            //             console.log(r)
-            //             if (r.status !== 200) {
-            //                 errorImagesInserted = true;
-            //             } else {
-            //                 console.log("inserted image")
-            //             }
-            //         });
-            //     }
+        // if (this.validate()) {
+        const idFlat = (mode === "create") ? Date.now() : this.state.flatDetail.id;
+        let base64 = require('base-64');
+        let encoded = base64.encode(this.state.selectedFile);
+        let imageFile = {id: Date.now(), content: encoded, room_id: idFlat};
+        let flat = {...this.state.flatDetail, room_image: imageFile}
+        this.setState({flatDetail: flat})
+        console.log(imageFile)
 
-            if (!errorImagesInserted) {
-                if (mode === "create") {
-                    let flat = {...this.state.flatDetail, id: idFlat}
-                    fetch("http://localhost:8080/flats", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json"
-                        },
-                        body: JSON.stringify(flat)
-                    }).then((res) => {
-                        console.log(res)
-                        if (res.status !== 200) {
-                            this.setState({
-                                error: `Saving returned status ${res.status}`
-                            });
-                        } else {
-                            this.props.flatSaved(flat);
-                            this.props.history.push("/offers");
-                        }
+        console.log(flat)
+        if (mode === "create") {
+            flat = {...flat, id: idFlat}
+            fetch("http://localhost:8080/flats", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify(flat)
+            }).then((res) => {
+                console.log(res)
+                if (res.status !== 200) {
+                    this.setState({
+                        error: `Saving returned status ${res.status}`
                     });
                 } else {
-                    console.log(this.state.flatDetail)
-                    fetch(`http://localhost:8080/flats/${idFlat}`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json"
-                        },
-                        body: JSON.stringify(this.state.flatDetail)
-                    }).then(res => {
-                        if (res.status !== 200) {
-                            this.setState({
-                                error: `Updating returned status ${res.status}`
-                            });
-                        } else {
-                            this.props.flatUpdated(this.state.flatDetail);
-                            this.props.history.push("/offers");
-                        }
-                    });
+                    this.props.flatSaved(flat);
+                    this.props.history.push("/offers");
                 }
-            }
+            });
+        } else {
+            fetch(`http://localhost:8080/flats/${idFlat}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify(flat)
+            }).then(res => {
+                if (res.status !== 200) {
+                    this.setState({
+                        error: `Updating returned status ${res.status}`
+                    });
+                } else {
+                    this.props.flatUpdated(flat);
+                    this.props.history.push("/offers");
+                }
+            });
         }
+        //}
     }
 
     validate() {

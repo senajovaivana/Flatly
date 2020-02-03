@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import {flatDeleted, flatsLoaded} from '../redux/actions/flatsActions'
 import { withRouter } from 'react-router-dom'
 
+import {idUser} from "./AuthHelperMethods"
+
 class ListOfRooms extends Component {
     constructor(props) {
         super(props);
@@ -21,10 +23,8 @@ class ListOfRooms extends Component {
     }
 
     componentDidMount() {
-        //TODO change to logged user
-        let id = 1;
         if (this.props.flats === undefined) {
-            fetch(`http://localhost:8080/flats?id=${id}`)
+            fetch(`http://localhost:8080/flats?id=${idUser}`)
                 .then((data) => data.json())
                 .then((flats) => {
                     this.props.flatsLoaded(flats);
