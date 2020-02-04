@@ -3,7 +3,7 @@ import '../css/ListOfReservations.css'
 import '../css/Login.css'
 import * as moment from 'moment';
 import BootstrapTable from 'react-bootstrap-table-next';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter, Comparator  } from 'react-bootstrap-table2-filter';
 import  { dateFilter } from 'react-bootstrap-table2-filter';
 import { selectFilter } from 'react-bootstrap-table2-filter';
 
@@ -33,6 +33,10 @@ const ListOfReservations  = ({
         );
 
     }
+    const dateFilter1 = dateFilter({
+        defaultValue: { date: moment().format('YYYY-MM-01'), comparator: Comparator.GT }  // default value
+    });
+
 
     function flatDetailFormatter(cell) {
         return (
@@ -55,7 +59,7 @@ const ListOfReservations  = ({
         dataField: 'start_date',
         text: 'Date of arrival',
         headerStyle: headerStyle,
-        filter: dateFilter(),
+        filter: forCurrentFlat === 0 ? dateFilter1 : dateFilter(),
         formatter: dateFormatter
     }, {
         dataField: 'end_date',
@@ -72,6 +76,8 @@ const ListOfReservations  = ({
         }),
         formatter: activeFormatter
     }];
+
+
     const expandRow = {
         renderer: row => (
             <div className={'tableExpandRow'}>
