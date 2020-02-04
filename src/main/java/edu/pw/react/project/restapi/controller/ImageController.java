@@ -34,6 +34,7 @@ public class ImageController {
     @PostMapping(value = "")
     @Transactional
     public ResponseEntity<ImageEntity> createImage(@Valid @RequestBody ImageEntity image) {
+        imageRepository.deleteImageOfRoom(image.getRoom_id());
         return new ResponseEntity<>(imageRepository.save(image), HttpStatus.OK);
     }
 }
