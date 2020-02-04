@@ -16,6 +16,7 @@ public class ImageEntity {
     public static ImageEntity EMPTY = new ImageEntity();
 
     @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "room_image_id", updatable = false, nullable = false)
     private Long id;
 

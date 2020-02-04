@@ -95,16 +95,16 @@ public class BookingController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(value = "/{id}")
-    //@Transactional
-    public ResponseEntity<BookingEntity> setBookingNonactive(@PathVariable Long id, @RequestHeader HttpHeaders headers, @Valid @RequestBody BookingEntity booking) {
+    @Transactional
+    public ResponseEntity<String> setBookingNonactive(@PathVariable Long id, @RequestHeader HttpHeaders headers, @Valid @RequestBody BookingEntity booking) {
         logHeaders(headers);
         if (securityService.isAuthorized(headers)) {
             if (bookingService.checkForDeletionAndDelete(id, booking)){
-                return ResponseEntity.status(HttpStatus.OK).body(booking);
+                return ResponseEntity.status(HttpStatus.OK).body(String.format("Booking with id %s was removed.", id));
             }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(booking);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request.");
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(booking);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access to resources.");
     }
 
 }
